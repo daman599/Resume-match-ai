@@ -15,7 +15,7 @@ export default function Features() {
             <img
               src="/bg-network.jpg"
               alt="Network"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover opacity-40"
             />
           </div>
           <div className="relative z-10">
@@ -37,7 +37,7 @@ export default function Features() {
             <img
               src="/bg-network.jpg"
               alt="Network"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover opacity-40"
             />
           </div>
           <div className="relative z-10">
