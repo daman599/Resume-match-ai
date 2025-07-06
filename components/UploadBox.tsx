@@ -1,6 +1,22 @@
+'use client'
+
 import { UploadCloud } from 'lucide-react';
+import { useRef } from "react"
 
 export default function UploadBox() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleOnClick(){
+     inputRef.current?.click();
+  }
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>){
+    const file = e.target.files?.[0];
+    if (file) {
+      console.log('Selected file:', file);
+    }
+  };
+
   return (
     <div
       className="border border-white/30 border-dashed rounded-2xl text-center
@@ -21,9 +37,17 @@ export default function UploadBox() {
         className="bg-white/10 border border-white/20 px-6 py-3 rounded-md text-base sm:text-lg text-white 
                    hover:bg-white/20 transition duration-200 ease-in-out focus:outline-none focus:ring-2 
                    focus:ring-white/30"
+        onClick={handleOnClick}
       >
         Select File
       </button>
+      <input 
+       type="file"
+       ref={inputRef} 
+       accept=".pdf,.doc,.docx"
+       onChange={handleOnChange}
+       className='hidden'>
+      </input>
     </div>
   );
 }
