@@ -1,4 +1,4 @@
-import UploadBox from './UploadBox';
+import UploadCTA from "./CTA";
 
 export default function Hero() {
   return (
@@ -17,11 +17,8 @@ export default function Hero() {
             Revolutionizing your job search. Our intelligent AI matches your resume with the ideal
             opportunities, saving you time and boosting your career.
           </p>
-        </div>
-
-        <div className="w-full md:w-auto">
-          <UploadBox />
-        </div>
+           <UploadCTA />
+        </div>    
       </div>
     </section>
   );

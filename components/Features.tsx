@@ -1,5 +1,3 @@
-'use client'
-
 import { Sparkles, ClipboardList } from 'lucide-react'
 
 export default function Features() {

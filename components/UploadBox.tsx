@@ -1,19 +1,27 @@
 'use client'
 
 import { UploadCloud } from 'lucide-react';
-import { useRef } from "react"
+import { useRef } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function UploadBox() {
+  const router = useRouter();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleOnClick(){
      inputRef.current?.click();
   }
 
-  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>){
+  async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>){
     const file = e.target.files?.[0];
+    
     if (file) {
-      console.log('Selected file:', file);
+     await axios.post("http://localhost:3000/api/resume/analyse",{
+       resume:file
+      })
+     router.push("/resume");
     }
   };
 
@@ -44,7 +52,7 @@ export default function UploadBox() {
       <input 
        type="file"
        ref={inputRef} 
-       accept=".pdf,.doc,.docx"
+       accept=".pdf"
        onChange={handleOnChange}
        className='hidden'>
       </input>

@@ -10,8 +10,8 @@ export default function Home() {
       className="w-full bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/bg-network.jpg')" }}
     >
-    <Navbar/>
-    <Hero/>
+      <Navbar/>
+      <Hero/>
     </div>
     <HowItWorks/>
     <Features/>

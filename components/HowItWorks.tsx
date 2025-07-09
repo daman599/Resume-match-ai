@@ -1,5 +1,3 @@
-'use client';
-
 import { UploadCloud, Brain, BarChart3, Briefcase } from 'lucide-react';
 
 export default function HowItWorks() {
@@ -10,7 +8,6 @@ export default function HowItWorks() {
           How ResumeMatch AI Works
         </h2>
 
-        {/* STEP 1 */}
         <div className="flex flex-col sm:flex-row items-start gap-4 border-b border-white/10 pb-6">
           <UploadCloud className="text-blue-400 w-6 h-6 shrink-0" />
           <div>
@@ -24,7 +21,6 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* STEP 2 */}
         <div className="flex flex-col sm:flex-row items-start gap-4 border-b border-white/10 pb-6">
           <Brain className="text-blue-400 w-6 h-6 shrink-0" />
           <div>
@@ -38,7 +34,6 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* STEP 3 */}
         <div className="flex flex-col sm:flex-row items-start gap-4 border-b border-white/10 pb-6">
           <BarChart3 className="text-blue-400 w-6 h-6 shrink-0" />
           <div>
@@ -52,7 +47,6 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* STEP 4 */}
         <div className="flex flex-col sm:flex-row items-start gap-4">
           <Briefcase className="text-blue-400 w-6 h-6 shrink-0" />
           <div>
