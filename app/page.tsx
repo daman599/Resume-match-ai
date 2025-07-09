@@ -6,7 +6,7 @@ export default function Home() {
   return (
    <main className="bg-black text-white min-h-screen relative">
     <div
-      className="w-full bg-cover bg-center bg-no-repeat"
+      className="w-full bg-cover bg-center pt-24 bg-no-repeat"
       style={{ backgroundImage: "url('/bg-network.jpg')" }}
     >
       <Hero/>

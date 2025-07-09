@@ -3,7 +3,7 @@ import UploadCTA from "./CTA";
 export default function Hero() {
   return (
     <section
-      className="relative min-h-[calc(100vh-64px)] px-6 md:px-12 py-20 bg-cover bg-center flex items-center justify-center"
+      className="relative min-h-[calc(100vh-64px)] px-6 md:px-12 py-20  bg-cover bg-center flex items-center justify-center"
     >
       <div className="absolute inset-0 z-0" />
 
