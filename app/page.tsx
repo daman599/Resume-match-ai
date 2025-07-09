@@ -1,7 +1,6 @@
-import  Navbar from "../components/Navbar"
-import  Hero from "../components/Hero"
-import  HowItWorks from "../components/HowItWorks"
-import  Features from "../components/Features"
+import  Hero from "@/components/Hero"
+import  HowItWorks from "@/components/HowItWorks"
+import  Features from "@/components/Features"
 
 export default function Home() {
   return (
@@ -10,7 +9,6 @@ export default function Home() {
       className="w-full bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/bg-network.jpg')" }}
     >
-      <Navbar/>
       <Hero/>
     </div>
     <HowItWorks/>
