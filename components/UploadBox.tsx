@@ -1,22 +1,30 @@
 'use client';
 
 import { UploadCloud } from 'lucide-react';
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import axios from "axios";
+import Loader from "./Loader";
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleOnClick(){
-    inputRef.current?.click();
-  }
+  const [loading ,setLoading] = useState<Boolean>(false);
    
-  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>){
+  async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>){
     const file = e.target.files?.[0];
 
     if(file){
-     console.log("file aagyi hai");
+      setLoading(true);
+       axios.post("http://localhost:3000/api/resume/analyse",{
+        "resume":file
+      });
     }
   }
+
+  if (loading) {
+   return (
+      <Loader />
+    );
+}
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
@@ -42,7 +50,9 @@ export default function UploadBox() {
         />
 
         <button
-          onClick={handleOnClick}
+          onClick={()=>{
+             inputRef.current?.click();
+          }}
           className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-md text-sm sm:text-base
                bg-white/10 border border-white/20 text-white font-medium
                hover:bg-white/20 hover:shadow-md focus:outline-none
