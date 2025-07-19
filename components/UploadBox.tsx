@@ -2,29 +2,25 @@
 
 import { UploadCloud } from 'lucide-react';
 import { useRef, useState } from "react";
-import axios from "axios";
 import Loader from "./Loader";
 import { useDropzone } from 'react-dropzone';
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<Boolean>(false);
-  const [selectFile ,setSelectFile] = useState<Boolean>(false);
 
   async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (file) {
       setLoading(true);
-      setSelectFile(true);
     }
   }
   
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: { 'application/pdf': ['.pdf'] },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
-    
       setLoading(true);
     },
      noClick: true,
