@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import Loader from "./Loader";
 import { useDropzone } from 'react-dropzone';
 import axios from "axios";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
