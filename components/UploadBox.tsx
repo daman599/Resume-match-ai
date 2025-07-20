@@ -5,10 +5,12 @@ import { useRef, useState } from "react";
 import Loader from "./Loader";
 import { useDropzone } from 'react-dropzone';
 import axios from "axios";
+import { useRouter } from 'next/router';
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<Boolean>(false);
+  const router = useRouter();
 
   async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -19,7 +21,11 @@ export default function UploadBox() {
       const formData = new FormData;
       formData.append("resume",file);
 
-      await axios.post("http://localhost:3000/api/parse",formData);
+      const response = await axios.post("http://localhost:3000/api/parse",formData);
+      
+      if(response.data){
+        router.push("/results");
+      }
     }
   }
   
