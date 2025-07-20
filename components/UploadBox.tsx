@@ -4,6 +4,7 @@ import { UploadCloud } from 'lucide-react';
 import { useRef, useState } from "react";
 import Loader from "./Loader";
 import { useDropzone } from 'react-dropzone';
+import axios from "axios";
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -14,6 +15,11 @@ export default function UploadBox() {
 
     if (file) {
       setLoading(true);
+
+      const formData = new FormData;
+      formData.append("resume",file);
+
+      await axios.post("http://localhost:3000/api/parse",formData);
     }
   }
   
