@@ -8,7 +8,7 @@ export default function Navbar() {
             alt="Logo"
             className="w-6 h-6 bg-white rounded-full p-[2px]"
           />
-          ResumeMatch <span className="hidden sm:inline">AI</span>
+          ResumeMatch <span className="sm:inline">AI</span>
         </h1>
 
         <button

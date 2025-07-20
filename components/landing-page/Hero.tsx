@@ -1,4 +1,4 @@
-import UploadCTA from "./CTA";
+import CTAButton from "./CTA-Button";
 
 export default function Hero() {
   return (
@@ -17,7 +17,7 @@ export default function Hero() {
             Revolutionizing your job search. Our intelligent AI matches your resume with the ideal
             opportunities, saving you time and boosting your career.
           </p>
-           <UploadCTA />
+           <CTAButton />
         </div>    
       </div>
     </section>
