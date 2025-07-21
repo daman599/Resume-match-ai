@@ -6,11 +6,13 @@ import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import Loader from "./Loader";
+import useStore from "@/store";
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const updateParsedText = useStore((state) => state.updateParsedText);
 
   async function APICall(file: File) {
 
@@ -20,6 +22,7 @@ export default function UploadBox() {
     const response = await axios.post("http://localhost:3000/api/parse", formData);
 
     if (response.data) {
+      updateParsedText(response.data.parsedText);
       router.push("/results");
     }
   }
