@@ -1,41 +1,47 @@
 'use client';
 
+import axios from "axios";
 import { UploadCloud } from 'lucide-react';
 import { useRef, useState } from "react";
-import Loader from "./Loader";
 import { useDropzone } from 'react-dropzone';
-import axios from "axios";
 import { useRouter } from 'next/navigation';
+import Loader from "./Loader";
 
 export default function UploadBox() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function APICall(file: File) {
+
+    const formData = new FormData();
+    formData.append("resume", file);
+    
+    const response = await axios.post("http://localhost:3000/api/parse", formData);
+
+    if (response.data) {
+      router.push("/results");
+    }
+  }
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (file) {
       setLoading(true);
-
-      const formData = new FormData;
-      formData.append("resume",file);
-
-      const response = await axios.post("http://localhost:3000/api/parse",formData);
-      
-      if(response.data){
-        router.push("/results");
-      }
+      APICall(file);
     }
   }
-  
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'application/pdf': ['.pdf'] },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
       setLoading(true);
+      const file = acceptedFiles[0];
+      APICall(file);
     },
-     noClick: true,
+    noClick: true,
   });
 
   if (loading) {
