@@ -23,7 +23,9 @@ export default function Results() {
     }, [])
 
     if (loading) {
-        return <Loader />
+        return <Loader>
+            <p className="text-xl text-gray-400">Analyzing your resume. Please wait....</p>
+        </Loader>
     }
 
     return (

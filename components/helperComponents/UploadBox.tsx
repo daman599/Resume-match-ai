@@ -50,7 +50,9 @@ export default function UploadBox() {
 
   if (loading) {
     return (
-      <Loader />
+      <Loader>
+        <p className="text-xl text-gray-400">Uploading your resume...</p>
+      </Loader>
     );
   }
 
