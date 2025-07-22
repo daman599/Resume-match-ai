@@ -1,4 +1,4 @@
-import UploadBox from "@/components/UploadBox";
+import UploadBox from "@/components/helperComponents/UploadBox";
 
 export default function UploadResume() {
   return (

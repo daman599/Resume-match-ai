@@ -9,6 +9,7 @@ import Loader from "./Loader";
 import useStore from "@/store";
 
 export default function UploadBox() {
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();

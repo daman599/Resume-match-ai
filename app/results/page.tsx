@@ -2,7 +2,7 @@
 
 import useStore from "@/store";
 import axios from "axios";
-import Loader from "@/components/Loader";
+import Loader from "@/components/helperComponents/Loader";
 import { useState, useEffect } from "react";
 
 export default function Results() {
