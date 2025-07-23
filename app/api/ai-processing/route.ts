@@ -1,40 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from 'openai';
+import mongoose from "mongoose";
+import axios from "axios";
+import JobModel from "@/db";
+
+await mongoose.connect(process.env.MONGODB_URI!);
 
 const groq = new OpenAI({
     apiKey: process.env.GROQ_API_KEY,
     baseURL: "https://api.groq.com/openai/v1",
 });
 
+const app_id = process.env.APP_ID;
+const app_key = process.env.APP_KEY;
+
 export async function POST(req: NextRequest) {
 
+    const URL = `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${app_id}&app_key=${app_key}&results_per_page=20&sort_by=date`
+    const response = await axios.get(URL);
+    const results = response.data.results;
+
+    results.map(async (job:any) => {
+        const existing = await JobModel.findOne({jobId : job.id});
+        if(!existing){
+        await JobModel.create({
+            jobId:job.id,
+            title:job.title,
+            company:job.company.display_name,
+            location:job.location.area.join(", "),
+            jobCategory: job.category.label,
+            redirect_url:job.redirect_url,
+            description:job.description,
+            datePosted: new Date(job.created),
+        })
+       }
+    })
     const body = await req.json();
     const resumeText = body.resumeText;
-
-    const completion = await groq.chat.completions.create({
-        model: "llama3-70b-8192",
-        messages: [
-            {
-                role: 'user',
-                content: `
-                 I will give you a parsed resume text. 
-                 Your job:
-                - Identify key skills, job roles, and industry from the resume.
-                - Search for top 6 recent, remote-friendly job openings relevant to this skillset.
-                - For each job, provide:
-                - Job Title
-                - Company Name
-                - Direct Apply Link (reliable, working URL)
-                If you can't find an exact match, suggest close alternatives. 
-
-                Here is the resume text:
-                ${resumeText}
-                `
-            },
-        ],
-    });
-
-    console.log(completion.choices[0].message.content);
 
     return NextResponse.json({ "done": "processing done" })
 
