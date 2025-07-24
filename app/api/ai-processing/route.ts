@@ -11,14 +11,60 @@ const groq = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-    
+
     const body = await req.json();
     const resumeText = body.resumeText;
-    
+
     const res = await Jobs();
     const json = await res.json();
     const jobs = json.jobs;
-    
-    console.log(jobs);
-    return NextResponse.json({ "done": "processing done" })
+
+    const completion = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+      {
+        role: 'user',
+        content: `
+       You are an intelligent job-matching assistant.
+
+       I will provide you with:
+       1. A candidate's resume as plain text.
+       2. A list of job openings, each as an object in a JSON array.
+
+       ### Your task:
+       Analyze the resume to understand the candidate's:
+       - Skills
+       - Experience
+       - Education
+       - Job roles they are suited for
+
+       Then evaluate each job in the list to determine if it matches the candidate’s profile.
+
+       ### Output format:
+       Return ONLY the job objects from the list that are **relevant and well-suited** for the candidate.
+       Do not include any explanation or additional text.
+       Respond in **strict JSON format** — an array of matching job objects.
+
+       ---
+
+       ### Candidate Resume:
+       ${resumeText}
+
+       ---
+
+       ### Job Listings:
+       ${JSON.stringify(jobs)}
+
+       ---
+
+       Now, return only the matching jobs in a clean JSON array.
+         `
+      }
+      ],
+      temperature: 0.3 
+    });
+
+    const selectedJobs = completion.choices[0].message.content;
+
+    return NextResponse.json({ selectedJobs: selectedJobs});
 }
