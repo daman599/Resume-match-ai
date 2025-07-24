@@ -16,7 +16,9 @@ export async function POST(req: NextRequest) {
     const resumeText = body.resumeText;
     
     const res = await Jobs();
-    console.log("jobs",await res.json());
-
+    const json = await res.json();
+    const jobs = json.jobs;
+    
+    console.log(jobs);
     return NextResponse.json({ "done": "processing done" })
 }

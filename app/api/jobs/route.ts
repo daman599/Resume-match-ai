@@ -23,18 +23,21 @@ export async function Jobs(){
 
         if(!existing){
         await JobModel.create({
-            jobId:job.id,
-            title:job.title,
-            company:job.company.display_name,
-            location:job.location.area.join(", "),
-            jobCategory: job.category.label,
-            redirect_url:job.redirect_url,
-            description:job.description,
-            datePosted: new Date(job.created),
+            jobId : job.id,
+            title : job.title,
+            company : job.company.display_name,
+            location : job.location.area.join(", "),
+            jobCategory : job.category.label,
+            redirect_url : job.redirect_url,
+            description : job.description,
+            datePosted : new Date(job.created),
         })
        }
     })
-    
-    return NextResponse.json({jobs:"jobs 1234567890"});
 
+    const jobs = await JobModel.find();
+
+    return NextResponse.json({
+        jobs : jobs
+    });
 }

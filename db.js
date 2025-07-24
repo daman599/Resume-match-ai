@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose , { models } from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -15,7 +15,7 @@ const JobSchema = new Schema({
 
 });
 
-const JobModel = mongoose.model("Job", JobSchema);
+const JobModel = models.Job || mongoose.model("Job", JobSchema);
 
 export default JobModel;
 
