@@ -11,7 +11,7 @@ export async function Jobs(){
      params :{
         app_id: app_id,
         app_key: app_key,
-        results_per_page: 30,
+        results_per_page: 20,
         sort_by: "date",
         }
     })
@@ -30,7 +30,6 @@ export async function Jobs(){
             jobCategory : job.category.label,
             redirect_url : job.redirect_url,
             description : job.description,
-            datePosted : new Date(job.created),
         })
        }
     })

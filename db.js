@@ -11,7 +11,11 @@ const JobSchema = new Schema({
   jobCategory: { type: String },
   redirect_url: { type: String, required: true },
   description: { type: String, required: true },
-  datePosted: { type: Date, required: true },
+  createdAt: { 
+     type: Date,
+     default: Date.now,
+     expires: 7200,
+  },
 
 });
 
