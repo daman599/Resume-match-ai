@@ -15,7 +15,7 @@ export default function HowItWorks() {
               Upload Your Resume
             </h3>
             <p className="text-gray-300 text-sm md:text-base">
-              Securely upload your CV/resume in any common format. Our system extracts key
+              Securely upload your CV/resume in pdf format. Our system extracts key
               skills and experience with precision.
             </p>
           </div>
@@ -28,7 +28,7 @@ export default function HowItWorks() {
               AI-Powered Matching
             </h3>
             <p className="text-gray-300 text-sm md:text-base">
-              Our advanced AI analyzes your profile against thousands of job postings to
+              Our advanced AI analyzes your profile against latest job postings to
               find the perfect, most relevant fit.
             </p>
           </div>
