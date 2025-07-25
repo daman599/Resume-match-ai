@@ -1,4 +1,4 @@
-import JobModel from "@/db";
+import JobModel from "@/lib/db-schema/db";
 import axios from "axios";
 import { NextResponse } from "next/server";
 

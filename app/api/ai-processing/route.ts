@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from 'openai';
 import mongoose from "mongoose";
-import { Jobs } from "../jobs/route"
+import { Jobs } from "../fetch-jobs/route"
 
 await mongoose.connect(process.env.MONGODB_URI!);
 

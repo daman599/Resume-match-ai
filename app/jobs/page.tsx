@@ -1,6 +1,6 @@
 'use client'
 
-import useStore from "@/store";
+import useStore from "@/lib/state-store/store";
 import axios from "axios";
 import Loader from "@/components/helperComponents/Loader";
 import { useState, useEffect } from "react";

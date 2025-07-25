@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import Loader from "./Loader";
-import useStore from "@/store";
+import useStore from "@/lib/state-store/store";
 
 export default function UploadBox() {
 
@@ -24,7 +24,7 @@ export default function UploadBox() {
 
     if (response.data) {
       updateParsedText(response.data.parsedText);
-      router.push("/results");
+      router.push("/jobs");
     }
   }
 
