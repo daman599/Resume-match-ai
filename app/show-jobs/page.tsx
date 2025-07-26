@@ -3,19 +3,23 @@
 import useStore from "@/lib/state-store/store";
 import axios from "axios";
 import Loader from "@/components/helperComponents/Loader";
-import { useState, useEffect } from "react";
+import { useState , useEffect } from "react";
 
-export default function Results() {
+export default function Jobs() {
 
     const [loading, setLoading] = useState<boolean>(true);
+
     const parsedText = useStore((state) => (state.parsedText));
 
     async function APIcall() {
-        const response = await axios.post("http://localhost:3000/api/ai-processing",
+        try{
+        const response = await axios.post("/api/ai-processing",
             { resumeText: parsedText }
         )
-        console.log(response.data);
         setLoading(false);
+    }catch(err){
+        console.log("error" ,err)
+    }
     }
 
     useEffect(() => {
@@ -29,6 +33,8 @@ export default function Results() {
     }
 
     return (
-        <div className="text-red-800">Results ............</div>
+    <>
+     <div>hi therreeee</div>
+    </>
     );
 }

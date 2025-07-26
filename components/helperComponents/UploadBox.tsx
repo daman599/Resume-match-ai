@@ -20,11 +20,11 @@ export default function UploadBox() {
     const formData = new FormData();
     formData.append("resume", file);
     
-    const response = await axios.post("http://localhost:3000/api/parse", formData);
+    const response = await axios.post("/api/parse", formData);
 
     if (response.data) {
       updateParsedText(response.data.parsedText);
-      router.push("/jobs");
+      router.push("/show-jobs");
     }
   }
 
