@@ -34,5 +34,5 @@ export async function POST(request: NextRequest) {
               })
        }).join(" ");
 
-       return NextResponse.json({ "parsedText": parsedText });
+       return NextResponse.json({ parsedText : parsedText });
 }

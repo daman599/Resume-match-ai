@@ -10,7 +10,7 @@ export async function FetchandCacheJobs(){
     const cache = await redis.get(cacheKey);
     
     if(cache){
-        return {"latest_jobs":cache};
+        return {latest_jobs:cache};
     }
 
     const response = await axios.get("https://api.adzuna.com/v1/api/jobs/in/search/1",{
@@ -43,5 +43,5 @@ export async function FetchandCacheJobs(){
     const jobs = await JobModel.find();
     await redis.set("latest_jobs",jobs,{ex: 7200});
 
-    return {"latest_jobs":jobs};
+    return {latest_jobs:jobs};
 }

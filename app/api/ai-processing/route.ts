@@ -15,7 +15,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const resumeText = body.resumeText;
 
-    const latest_jobs = await FetchandCacheJobs();
+    const object = await FetchandCacheJobs();
+    const latestJobs = object.latest_jobs;
 
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
        ---
 
        ### Job Listings:
-       ${JSON.stringify(latest_jobs)}
+       ${JSON.stringify(latestJobs)}
 
        ---
 

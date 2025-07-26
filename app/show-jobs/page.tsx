@@ -5,16 +5,16 @@ import axios from "axios";
 import Loader from "@/components/helperComponents/Loader";
 import { useState , useEffect } from "react";
 
-export default function Jobs() {
+export default function ShowJobs() {
 
     const [loading, setLoading] = useState<boolean>(true);
 
     const parsedText = useStore((state) => (state.parsedText));
 
     async function APIcall() {
-        try{
+    try{
         const response = await axios.post("/api/ai-processing",
-            { resumeText: parsedText }
+          { resumeText: parsedText }
         )
         setLoading(false);
     }catch(err){
