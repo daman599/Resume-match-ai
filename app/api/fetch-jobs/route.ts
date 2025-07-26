@@ -1,11 +1,17 @@
 import JobModel from "@/lib/db-schema/db";
 import axios from "axios";
-import { NextResponse } from "next/server";
+import { redis } from "@/lib/cache/redis";
 
 const app_id = process.env.APP_ID;
 const app_key = process.env.APP_KEY;
 
-export async function Jobs(){
+export async function FetchandCacheJobs(){
+    const cacheKey :string = "latest_jobs";
+    const cache = await redis.get(cacheKey);
+    
+    if(cache){
+        return {"latest_jobs":cache};
+    }
 
     const response = await axios.get("https://api.adzuna.com/v1/api/jobs/in/search/1",{
      params :{
@@ -18,7 +24,7 @@ export async function Jobs(){
 
     const results = response.data.results;
 
-    results.map(async (job:any) => {
+    await Promise.all(results.map(async (job:any) => {
         const existing = await JobModel.findOne({jobId : job.id});
 
         if(!existing){
@@ -32,11 +38,10 @@ export async function Jobs(){
             description : job.description,
         })
        }
-    })
+    }))
 
     const jobs = await JobModel.find();
+    await redis.set("latest_jobs",jobs,{ex: 7200});
 
-    return NextResponse.json({
-        jobs : jobs
-    });
+    return {"latest_jobs":jobs};
 }

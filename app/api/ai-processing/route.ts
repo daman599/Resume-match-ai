@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from 'openai';
 import mongoose from "mongoose";
-import { Jobs } from "../fetch-jobs/route"
+import { FetchandCacheJobs } from "../fetch-jobs/route"
 
 await mongoose.connect(process.env.MONGODB_URI!);
 
@@ -15,9 +15,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const resumeText = body.resumeText;
 
-    const res = await Jobs();
-    const json = await res.json();
-    const jobs = json.jobs;
+    const latest_jobs = await FetchandCacheJobs();
 
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
@@ -53,7 +51,7 @@ export async function POST(req: NextRequest) {
        ---
 
        ### Job Listings:
-       ${JSON.stringify(jobs)}
+       ${JSON.stringify(latest_jobs)}
 
        ---
 
@@ -64,7 +62,7 @@ export async function POST(req: NextRequest) {
       temperature: 0.3 
     });
 
-    const selectedJobs = completion.choices[0].message.content;
+    const suitableJobs = completion.choices[0].message.content;
 
-    return NextResponse.json({ selectedJobs: selectedJobs});
+    return NextResponse.json({ "suitableJobs": suitableJobs});
 }
