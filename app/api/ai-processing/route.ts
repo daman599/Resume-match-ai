@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from 'openai';
+import { Groq } from 'groq-sdk';
 import mongoose from "mongoose";
-import { FetchandCacheJobs } from "../fetch-jobs/route"
+import { FetchandCacheJobs } from "../../../lib/fetch-jobs"
 
 await mongoose.connect(process.env.MONGODB_URI!);
 
-const groq = new OpenAI({
+const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
     baseURL: "https://api.groq.com/openai/v1",
 });
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     try{
 
     const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: `gemma2-9b-it`,
       messages: [
       {
         role: 'user',
@@ -62,13 +62,17 @@ export async function POST(req: NextRequest) {
          `
       }
       ],
-      temperature: 0.3 
+      temperature: 0.3 ,
+      max_completion_tokens: 1024,
+      top_p: 1,
+      stop: null
     });
+    
+     const content:string | null = completion.choices[0]?.message?.content;
+     const suitableJobs:object[] = content ? JSON.parse(content) : [];
+     return NextResponse.json({ suitableJobs: suitableJobs});
 
-    const suitableJobs = completion.choices[0].message.content;
-    return NextResponse.json({ suitableJobs: suitableJobs});
-
-    }catch(err){
+    }catch(err:any){
       return NextResponse.json(
         {error : "Something went wrong"},
         {status : 500}

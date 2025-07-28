@@ -1,6 +1,6 @@
 'use client'
 
-import useStore from "@/lib/state-store/store";
+import useStore from "@/lib/state-store";
 import axios from "axios";
 import Loader from "@/components/helperComponents/Loader";
 import { useState, useEffect } from "react";
@@ -24,7 +24,7 @@ export default function Jobs() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const parsedText = useStore((state) => (state.parsedText));
-    const [jobs, setJobs] = useState<Jobtype[] | null>(null);
+    const [jobs, setJobs] = useState<Jobtype[] >([]);
 
     async function APIcall() {
         try {

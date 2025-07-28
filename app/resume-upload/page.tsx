@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import Loader from "@/components/helperComponents/Loader";
-import useStore from "@/lib/state-store/store";
+import useStore from "@/lib/state-store";
 import ErrorComponent from "@/components/helperComponents/Error";
 
 export default function ResumeUpload() {
@@ -23,7 +23,7 @@ export default function ResumeUpload() {
     formData.append("resume", file);
 
   try{
-    const response = await axios.post("/api/parse", formData);
+    const response = await axios.post("/api/parse-resume", formData);
 
     if (response.data) {
       updateParsedText(response.data.parsedText);
