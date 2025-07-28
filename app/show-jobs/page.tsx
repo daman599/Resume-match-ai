@@ -4,11 +4,12 @@ import useStore from "@/lib/state-store/store";
 import axios from "axios";
 import Loader from "@/components/helperComponents/Loader";
 import { useState , useEffect } from "react";
+import ErrorComponent from "@/components/helperComponents/Error";
 
 export default function ShowJobs() {
 
     const [loading, setLoading] = useState<boolean>(true);
-
+    const [error, setError] = useState<boolean>(false);
     const parsedText = useStore((state) => (state.parsedText));
 
     async function APIcall() {
@@ -16,9 +17,14 @@ export default function ShowJobs() {
         const response = await axios.post("/api/ai-processing",
           { resumeText: parsedText }
         )
-        setLoading(false);
+
+        console.log(response.data.suitableJobs);
+
     }catch(err){
-        console.log("error" ,err)
+        console.log("error" ,err);
+        setError(true);
+    }finally{
+        setLoading(false);
     }
     }
 
@@ -34,7 +40,8 @@ export default function ShowJobs() {
 
     return (
     <>
-     <div>hi therreeee</div>
+      {error && <ErrorComponent/>}
+      <div className="text-red-800">hi therreeee</div>
     </>
     );
 }
