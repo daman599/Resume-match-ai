@@ -23,7 +23,7 @@ export default function ResumeUpload() {
     formData.append("resume", file);
 
   try{
-    const response = await axios.post("/api/parse-resume", formData);
+    const response = await axios.post("/api/resume/parse", formData);
 
     if (response.data) {
       updateParsedText(response.data.parsedText);

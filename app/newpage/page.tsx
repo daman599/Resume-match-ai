@@ -8,7 +8,7 @@ export default function Pageee(){
     const parsedText = useStore((state) => (state.parsedText));
     
     async function call(){
-        const response = await axios.post("/api/resume-optimize",{resumeText:parsedText});
+        const response = await axios.post("/api/resume/optimize",{resumeText:parsedText});
         console.log(response);
     }
     useEffect(()=>{
