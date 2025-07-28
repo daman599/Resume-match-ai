@@ -7,11 +7,13 @@ import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import Loader from "@/components/helperComponents/Loader";
 import useStore from "@/lib/state-store/store";
+import ErrorComponent from "@/components/helperComponents/Error";
 
 export default function ResumeUpload() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const router = useRouter();
   const updateParsedText = useStore((state) => state.updateParsedText);
 
@@ -19,13 +21,18 @@ export default function ResumeUpload() {
 
     const formData = new FormData();
     formData.append("resume", file);
-    
+
+  try{
     const response = await axios.post("/api/parse", formData);
 
     if (response.data) {
       updateParsedText(response.data.parsedText);
       router.push("/jobs");
     }
+  }catch(err){
+     console.log("ERROR",err);
+     setError(true);
+  }
   }
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -57,7 +64,9 @@ export default function ResumeUpload() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <>
+    {error && <ErrorComponent/> }
+     <div className="min-h-screen flex items-center justify-center px-4 py-12">
       <div {...getRootProps()}
         className="w-full max-w-md sm:max-w-xl p-4 sm:p-6 md:p-8
              rounded-3xl border border-white/20 border-dashed 
@@ -102,5 +111,6 @@ export default function ResumeUpload() {
         />
       </div>
     </div>
+    </>
   );
 }

@@ -17,6 +17,8 @@ export async function POST(req: NextRequest) {
 
     const object = await FetchandCacheJobs();
     const latestJobs = object.latest_jobs;
+    
+    try{
 
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
@@ -64,6 +66,12 @@ export async function POST(req: NextRequest) {
     });
 
     const suitableJobs = completion.choices[0].message.content;
-
     return NextResponse.json({ suitableJobs: suitableJobs});
+
+    }catch(err){
+      return NextResponse.json(
+        {error : "Something went wrong"},
+        {status : 500}
+      );
+    }
 }

@@ -8,7 +8,7 @@ import ErrorComponent from "@/components/helperComponents/Error";
 
 export default function Jobs() {
 
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const parsedText = useStore((state) => (state.parsedText));
 
@@ -29,7 +29,10 @@ export default function Jobs() {
     }
 
     useEffect(() => {
-        APIcall();  
+        if(parsedText){
+          setLoading(true);
+          APIcall();  
+        }
     }, [])
 
     if (loading) {
@@ -41,7 +44,6 @@ export default function Jobs() {
     return (
     <>
       {error && <ErrorComponent/>}
-      <div className="text-red-800">hi therreeee</div>
     </>
     );
 }
