@@ -1,4 +1,10 @@
 import CTAButton from "./CTA-Button";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export default function Hero() {
   return (
@@ -13,7 +19,7 @@ export default function Hero() {
           <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white">
             Your Resume,<br />Perfect Jobs.<br />Powered by AI.
           </h1>
-          <p className="text-gray-300 text-base md:text-lg">
+          <p className={`text-gray-300 font-sans ${inter.variable} text-xl md:text-lg`}>
             Revolutionizing your job search. Our intelligent AI matches your resume with the ideal
             opportunities, saving you time and boosting your career.
           </p>
