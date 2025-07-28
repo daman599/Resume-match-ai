@@ -65,5 +65,5 @@ export async function POST(req: NextRequest) {
 
     const suitableJobs = completion.choices[0].message.content;
 
-    return NextResponse.json({ "suitableJobs": suitableJobs});
+    return NextResponse.json({ suitableJobs: suitableJobs});
 }

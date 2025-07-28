@@ -6,7 +6,7 @@ import Loader from "@/components/helperComponents/Loader";
 import { useState , useEffect } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
 
-export default function ShowJobs() {
+export default function Jobs() {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
