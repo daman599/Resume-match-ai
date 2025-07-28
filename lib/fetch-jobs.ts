@@ -1,13 +1,13 @@
-import JobModel from "@/lib/db-schema/db";
+import JobModel from "@/lib/db-schema";
 import axios from "axios";
-import { redis } from "@/lib/cache/redis";
+import { redis } from "@/lib/cache-redis";
 
 const app_id = process.env.APP_ID;
 const app_key = process.env.APP_KEY;
 
 export async function FetchandCacheJobs(){
-    const cacheKey :string = "latest_jobs";
-    const cache = await redis.get(cacheKey);
+    const cacheKey : string = "latest_jobs";
+    const cache : unknown = await redis.get(cacheKey);
     
     if(cache){
         return {latest_jobs:cache};
