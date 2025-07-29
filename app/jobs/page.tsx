@@ -5,6 +5,7 @@ import axios from "axios";
 import Loader from "@/components/helperComponents/Loader";
 import { useState, useEffect } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
+import { Building2 , MapPin , Dot } from "lucide-react";
 
 interface Jobtype {
     "_id": string,
@@ -24,7 +25,7 @@ export default function Jobs() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const parsedText = useStore((state) => (state.parsedText));
-    const [jobs, setJobs] = useState<Jobtype[]>([]);
+    const [jobs, setJobs] = useState<Jobtype[] | null>(null);
 
     async function APIcall() {
         try {
@@ -58,21 +59,31 @@ export default function Jobs() {
     return (
         <>
             {error && <ErrorComponent />}
-            {jobs && (
-                <div className="text-white px-4">
-                    <p className="text-lg mb-4">Here are the latest jobs that match your profile...</p>
+            {jobs && jobs.length === 0 && <p className="text-white">No jobs found matching your profile.</p>}
+            {jobs && jobs.length > 0 && (
+                <div className="text-white px-4 py-20">
+                    <p className="text-lg mb-4">Here are the latest jobs matching your profile...</p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {jobs.map((job) => (
                             <div key={job.jobId} className="border-2 border-amber-950 bg-gray-300 p-4 rounded-md shadow-md text-black">
                                 <p className="font-bold text-lg">{job.title}</p>
-                                <p className="text-sm">{job.company}</p>
-                                <p className="text-sm">{job.location}</p>
-                                <p className="text-sm italic">{job.jobCategory}</p>
+                                <div className="flex gap-2"> 
+                                    <Building2/> 
+                                    <p className="text-xl font-semibold">{job.company}</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <MapPin/>
+                                    <p className="text-sm">{job.location}</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <Dot/>
+                                    <p className="text-sm italic">{job.jobCategory}</p>
+                                </div>
                                 <a href={job.redirect_url} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
                                     View Job
                                 </a>
-                                <p className="line-clamp-4 text-sm text-gray-800 mt-2">{job.description}</p>
+                                <p className="line-clamp-3 text-sm text-gray-800 mt-2">{job.description}</p>
                             </div>
                         ))}
                     </div>
