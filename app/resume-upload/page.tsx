@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Loader from "@/components/helperComponents/Loader";
 import useStore from "@/lib/state-store";
 import ErrorComponent from "@/components/helperComponents/Error";
+import LightRays from "@/Reactbits/LightRays/LightRays";
 
 export default function ResumeUpload() {
 
@@ -22,17 +23,17 @@ export default function ResumeUpload() {
     const formData = new FormData();
     formData.append("resume", file);
 
-  try{
-    const response = await axios.post("/api/resume/parse", formData);
+    try {
+      const response = await axios.post("/api/resume/parse", formData);
 
-    if (response.data) {
-      updateParsedText(response.data.parsedText);
-      router.push("/jobs");
+      if (response.data) {
+        updateParsedText(response.data.parsedText);
+        router.push("/jobs");
+      }
+    } catch (err) {
+      console.log("ERROR", err);
+      setError(true);
     }
-  }catch(err){
-     console.log("ERROR",err);
-     setError(true);
-  }
   }
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -65,52 +66,65 @@ export default function ResumeUpload() {
 
   return (
     <>
-    {error && <ErrorComponent/> }
-     <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <div {...getRootProps()}
-        className="w-full max-w-md sm:max-w-xl p-4 sm:p-6 md:p-8
-             rounded-3xl border border-white/20 border-dashed 
-             bg-white/5 backdrop-blur-xl shadow-2xl 
-             flex flex-col items-center justify-center 
-             space-y-4 text-center
-             hover:border-blue-400 transition-all duration-300">
+      {error && <ErrorComponent />}
+      <div className="relative min-h-screen bg-black overflow-hidden pt-16">
+        <div className="absolute inset-0 z-0">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#0096FF"
+            raysSpeed={1.5}
+            lightSpread={0.8}
+            rayLength={1.2}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0.1}
+            distortion={0.05}
+            className="w-full h-full"
+          />
+        </div>
 
-        <input {...getInputProps()} />
+        <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-64px)] px-4">
+          <div
+            {...getRootProps()}
+            className="w-full max-w-md sm:max-w-xl p-4 sm:p-6 md:p-8
+        rounded-3xl border border-white/20 border-dashed 
+        bg-white/5 backdrop-blur-xl shadow-2xl 
+        flex flex-col items-center justify-center 
+        space-y-4 text-center
+        hover:border-blue-400 transition-all duration-300"
+          >
+            <input {...getInputProps()} />
 
-        <UploadCloud
-          className="text-blue-400 animate-pulse"
-          size={40}
-        />
+            <UploadCloud className="text-blue-400 animate-pulse" size={40} />
 
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
-          Drag and drop your resume here
-        </h1>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+              Drag and drop your resume here
+            </h1>
 
-        <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-sm">
-          Or
-        </p>
+            <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-sm">
+              Or
+            </p>
 
-        <button
-          onClick={() => {
-            inputRef.current?.click();
-          }}
-          className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-md text-sm sm:text-base
-               bg-white/10 border border-white/20 text-white font-medium
-               hover:bg-white/20 hover:shadow-md focus:outline-none
-               focus:ring-2 focus:ring-white/30 transition duration-200 cursor-pointer"
-        >
-          Select File
-        </button>
+            <button
+              onClick={() => inputRef.current?.click()}
+              className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-md text-sm sm:text-base
+          bg-white/10 border border-white/20 text-white font-medium
+          hover:bg-white/20 hover:shadow-md focus:outline-none
+          focus:ring-2 focus:ring-white/30 transition duration-200 cursor-pointer"
+            >
+              Select File
+            </button>
 
-        <input
-          type="file"
-          ref={inputRef}
-          accept=".pdf"
-          onChange={handleOnChange}
-          className="hidden"
-        />
+            <input
+              type="file"
+              ref={inputRef}
+              accept=".pdf"
+              onChange={handleOnChange}
+              className="hidden"
+            />
+          </div>
+        </div>
       </div>
-    </div>
     </>
   );
 }
