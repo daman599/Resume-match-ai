@@ -24,7 +24,7 @@ export default function Jobs() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const parsedText = useStore((state) => (state.parsedText));
-    const [jobs, setJobs] = useState<Jobtype[] >([]);
+    const [jobs, setJobs] = useState<Jobtype[]>([]);
 
     async function APIcall() {
         try {
@@ -58,22 +58,27 @@ export default function Jobs() {
     return (
         <>
             {error && <ErrorComponent />}
-            {jobs && jobs.map((job) => (
-                <div key={job.jobId} className="flex items-center justify-start h-screen w-screen">
-                    <div className="w-[300px] h-[300px] border-2 border-b-amber-950 bg-amber-50 p-4">
-                        <p className="font-bold">{job.title}</p>
-                        <p>{job.company}</p>
-                        <p>{job.location}</p>
-                        <p>{job.jobCategory}</p>
-                        <a href={job.redirect_url} className="text-blue-600 underline" target="_blank">
-                            View Job
-                        </a>
-                        <p className="line-clamp-4 text-sm text-gray-800">{job.description}</p>
+            {jobs && (
+                <div className="text-white px-4">
+                    <p className="text-lg mb-4">Here are the latest jobs that match your profile...</p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {jobs.map((job) => (
+                            <div key={job.jobId} className="border-2 border-amber-950 bg-gray-300 p-4 rounded-md shadow-md text-black">
+                                <p className="font-bold text-lg">{job.title}</p>
+                                <p className="text-sm">{job.company}</p>
+                                <p className="text-sm">{job.location}</p>
+                                <p className="text-sm italic">{job.jobCategory}</p>
+                                <a href={job.redirect_url} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+                                    View Job
+                                </a>
+                                <p className="line-clamp-4 text-sm text-gray-800 mt-2">{job.description}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            ))
-            }
+            )}
+
         </>
     );
-} 
-           
+}
