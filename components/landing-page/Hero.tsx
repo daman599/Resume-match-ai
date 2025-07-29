@@ -1,5 +1,4 @@
 import CTAButton from "./CTA-Button";
-import { Inter } from "next/font/google";
 import { inter } from "@/lib/fonts";
 
 export default function Hero() {

@@ -6,6 +6,7 @@ import Loader from "@/components/helperComponents/Loader";
 import { useState, useEffect } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
 import { Building2 , MapPin , Dot } from "lucide-react";
+import { inter } from "@/lib/fonts";
 
 interface Jobtype {
     "_id": string,
@@ -89,6 +90,12 @@ export default function Jobs() {
                     </div>
                 </div>
             )}
+
+             <div className="flex items-center justify-center h-screen w-screen">
+                <div className="flex flex-col items-center justify-center space-y-2 text-center text-gray-300 text-xl">
+                   <button className={` bg-black w-[300px] h-[50px] p-2 cursor-pointer border-black rounded-2xl ${inter.variable}`}>Get tips to optimize resume.</button>
+                </div>
+            </div>
 
         </>
     );
