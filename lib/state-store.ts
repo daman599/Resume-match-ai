@@ -18,6 +18,8 @@ type StateType = {
     updateParsedText : (text : string) => void ,
     jobs : JobType[],
     updateJobs : (jobs :JobType[]) => void ,
+    tips : string[],
+    updateTips : ( tips :string[]) => void ,
 }
 
 const useStore = create<StateType>((set) => (
@@ -26,6 +28,8 @@ const useStore = create<StateType>((set) => (
         updateParsedText : (text) => set({ parsedText : text }),
         jobs : [],
         updateJobs :(jobs) => set({ jobs }),
+        tips : [],
+        updateTips : (tips) => set({ tips }),
      }
 ))
 
