@@ -12,7 +12,8 @@ export default function ResumeOptimize() {
     const parsedText = useStore((state) => (state.parsedText));
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [tips, setTips] = useState<string[]>([]);
+    const tips = useStore((state) => (state.tips));
+    const setTips = useStore((state) => (state.updateTips));
 
     async function call() {
         try {
@@ -25,10 +26,15 @@ export default function ResumeOptimize() {
         }
     }
     useEffect(() => {
+        if(tips.length > 0){
+            return ;
+        }
+        
         if (parsedText) {
             setLoading(true);
             call();
         }
+
     }, [])
 
     if (loading) {
