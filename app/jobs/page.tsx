@@ -6,29 +6,16 @@ import Loader from "@/components/helperComponents/Loader";
 import { useState, useEffect } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
 import { Building2, MapPin, Dot } from "lucide-react";
-import { inter, plusJakarta } from "@/lib/fonts";
+import { inter , plusJakarta } from "@/lib/fonts";
 import { useRouter } from "next/navigation";
 import BlurText from "@/components/ui/BlurText";
 
-interface Jobtype {
-    "_id": string,
-    "jobId": string,
-    "title": string,
-    "location": string,
-    "company": string,
-    "jobCategory": string,
-    "redirect_url": string,
-    "description": string,
-    "createdAt": string,
-    "__v": number,
-}
-
 export default function Jobs() {
-
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const parsedText = useStore((state) => (state.parsedText));
-    const [jobs, setJobs] = useState<Jobtype[]>([]);
+    const setJobs = useStore((state) => (state.updateJobs));
+    const jobs = useStore((state) => (state.jobs));
     const router = useRouter();
 
     async function APIcall() {
@@ -48,6 +35,10 @@ export default function Jobs() {
     }
 
     useEffect(() => {
+        if (jobs.length > 0) {
+            return;
+        }
+
         if (parsedText) {
             setLoading(true);
             APIcall();
@@ -63,46 +54,64 @@ export default function Jobs() {
     return (
         <>
             {error && <ErrorComponent />}
-            {jobs && jobs.length === 0 && <p className="text-white">No jobs found matching your profile.</p>}
-            <div className=" px-4 py-20">
+             <div className=" px-4 py-20">
                 <BlurText
                     text="Here are the latest jobs matching to your profile..."
                     delay={150}
                     animateBy="words"
                     direction="top"
-                    className="text-4xl mb-4 mt-2 ml-28 ${plusJakarta.variable} font-semibold text-blue-600"
+                    className={` mb-4 mt-2 ml-28 ${inter.variable} font-semibold text-3xl text-[#0096FF]`}
                 />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {jobs.map((job) => (
-                        <div key={job.jobId} className="border-2 border-amber-950 bg-gray-300 p-4 rounded-md shadow-md text-black">
-                            <p className="font-bold text-lg">{job.title}</p>
-                            <div className="flex gap-2">
-                                <Building2 />
-                                <p className="text-xl font-semibold">{job.company}</p>
+                <div className="ml-28 mt-9 mb-10 mr-26">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {jobs.map((job) => (
+                            <div
+                                key={job.jobId}
+                                className="border-2 w-[400px] h-[380px] border-gray-600 bg-black p-4 rounded-3xl shadow-md text-gray-300"
+                            >
+                                <p className={`text-xl mb-1 text-gray-600 font-semibold ${inter.variable}`}>{job.title}</p>
+
+                                <div className="mt-1 mb-1"> 
+                                    <div className={`flex gap-2 ${inter.variable} text-sm text-gray-300`}>
+                                        <Building2 />
+                                        <p>{job.company}</p>
+                                    </div>
+                                    <div className={`flex gap-2 ${inter.variable} text-sm text-gray-300`}>
+                                        <MapPin />
+                                        <p>{job.location}</p>
+                                    </div>
+                                    <div className={`flex gap-2 ${inter.variable} text-sm text-gray-300`}>
+                                        <Dot />
+                                        <p>{job.jobCategory}</p>
+                                    </div>
+                                </div>
+
+                                <a
+                                    href={job.redirect_url}
+                                    className={`text-blue-400 underline ${inter.variable}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    View Job
+                                </a>
+
+                                <p className={`line-clamp-4 ${plusJakarta.variable} text-xl text-gray-300 mt-2`}>{job.description}</p>
                             </div>
-                            <div className="flex gap-2">
-                                <MapPin />
-                                <p className="text-sm">{job.location}</p>
-                            </div>
-                            <div className="flex gap-2">
-                                <Dot />
-                                <p className="text-sm italic">{job.jobCategory}</p>
-                            </div>
-                            <a href={job.redirect_url} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
-                                View Job
-                            </a>
-                            <p className="line-clamp-3 text-sm text-gray-800 mt-2">{job.description}</p>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-                <div className="flex flex-col items-center justify-center space-y-2 text-center text-gray-300 text-xl">
+
+                <div className="flex flex-col items-center justify-center space-y-2 text-center text-gray-600 text-xl">
                     <button onClick={() => {
-                        router.push("/resume-optimize");
+                        router.prefetch("/resume-optimize");
                     }}
-                        className={` bg-black w-[300px] h-[50px] p-2 cursor-pointer border-black rounded-2xl ${inter.variable}`}>Get tips to optimize resume.</button>
+                    className={` bg-black w-[400px] h-[50px] text-2xl font-semibold p-2 cursor-pointer border-black hover:underline  rounded-2xl ${inter.variable}`}>
+                        Get tips to optimize resume.
+                    </button>
                 </div>
             </div>
+            
         </>
     );
 }

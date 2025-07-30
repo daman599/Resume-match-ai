@@ -91,7 +91,7 @@ export default function ResumeUpload() {
         bg-white/5 backdrop-blur-xl shadow-2xl 
         flex flex-col items-center justify-center 
         space-y-4 text-center
-        hover:border-blue-400 transition-all duration-300"
+        hover:border-[#0096FF] transition-all duration-300"
           >
             <input {...getInputProps()} />
 
