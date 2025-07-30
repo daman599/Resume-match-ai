@@ -9,9 +9,10 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const resumeText = body.resumeText;
-
+    
+    try{
     const completion = await groq.chat.completions.create({
-        model: `llama-3.3-70b-versatile`,
+        model: `llama-3.1-8b-instant`,
         messages: [
             {
                 role: 'user',
@@ -27,11 +28,12 @@ export async function POST(req: NextRequest) {
             - Sound supportive and constructive — like a mentor who really wants them to succeed.
             - Are written in simple, easy-to-follow language.
 
-            Just return your suggestions as a **JSON array of strings**. No extra commentary or explanation — only the array.
+            Just return your suggestions as a proper **JSON array of strings**. No extra commentary or explanation — only the array.
 
             ---
 
             Resume:
+            
             ${resumeText}
             `
             }
@@ -39,7 +41,14 @@ export async function POST(req: NextRequest) {
         temperature: 0.3,
     })
 
-    console.log(completion.choices[0].message.content);
+    const response:string | null= completion.choices[0]?.message?.content;
+    const tips:string[] = response ? JSON.parse(response) : [];
+    return NextResponse.json({ tips : tips });
 
-    return NextResponse.json({ hello: 1 });
+   }catch(err:any){
+    return NextResponse.json(
+        {error : "Something went wrong"},
+        {status : 500}
+    )
+   }
 }
