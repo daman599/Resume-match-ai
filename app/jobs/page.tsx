@@ -8,7 +8,7 @@ import ErrorComponent from "@/components/helperComponents/Error";
 import { Building2, MapPin, Dot } from "lucide-react";
 import { inter, plusJakarta } from "@/lib/fonts";
 import { useRouter } from "next/navigation";
-import BlurText from "@/Reactbits/BlurText/BlurText";
+import BlurText from "@/components/ui/BlurText";
 
 interface Jobtype {
     "_id": string,

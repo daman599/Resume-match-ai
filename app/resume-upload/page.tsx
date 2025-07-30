@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Loader from "@/components/helperComponents/Loader";
 import useStore from "@/lib/state-store";
 import ErrorComponent from "@/components/helperComponents/Error";
-import LightRays from "@/Reactbits/LightRays/LightRays";
+import LightRays from "@/components/ui/LightRays";
 
 export default function ResumeUpload() {
 
