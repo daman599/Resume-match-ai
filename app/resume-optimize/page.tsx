@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
 import { CheckCheck } from "lucide-react";
-import { inter ,plusJakarta } from "@/lib/fonts";
+import { inter, plusJakarta } from "@/lib/fonts";
+import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
 
 export default function ResumeOptimize() {
     const parsedText = useStore((state) => (state.parsedText));
@@ -14,6 +15,7 @@ export default function ResumeOptimize() {
     const [loading, setLoading] = useState(false);
     const tips = useStore((state) => (state.tips));
     const setTips = useStore((state) => (state.updateTips));
+    const [hasResume, setHasResume] = useState<boolean>(true);
 
     async function call() {
         try {
@@ -26,16 +28,27 @@ export default function ResumeOptimize() {
         }
     }
     useEffect(() => {
-        if(tips.length > 0){
-            return ;
+        if (tips.length > 0) {
+            return;
         }
-        
-        if (parsedText) {
-            setLoading(true);
-            call();
+        if (parsedText === "") {
+            setHasResume(false);
+            return;
         }
-
+        setLoading(true);
+        call();
     }, [])
+
+    if (error) {
+        return <ErrorComponent />
+    }
+
+    if (!hasResume) {
+        return <NoResumeMessage>
+            <p className="text-xl text-gray-400">Please provide
+                <span className="text-[#0096FF] ml-1.5">resume</span> to get tips to optimize it.</p>
+        </NoResumeMessage>
+    }
 
     if (loading) {
         return <Loader>
@@ -45,7 +58,6 @@ export default function ResumeOptimize() {
 
     return (
         <>
-            {error && <ErrorComponent />}
             {tips && tips.length > 0 && (
                 <div className="mt-20 px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto">
                     <div className="mt-10 mb-10">
