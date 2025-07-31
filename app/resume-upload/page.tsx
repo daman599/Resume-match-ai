@@ -17,6 +17,8 @@ export default function ResumeUpload() {
   const [error, setError] = useState<boolean>(false);
   const router = useRouter();
   const updateParsedText = useStore((state) => state.updateParsedText);
+  const updateJobs = useStore((state) => state.updateJobs);
+  const updateTips = useStore((state) => state.updateTips);
 
   async function APICall(file: File) {
 
@@ -35,13 +37,19 @@ export default function ResumeUpload() {
       setError(true);
     }
   }
+  
+  function helper(file:File){
+      updateJobs([]);
+      updateTips([]);
+      setLoading(true);
+      APICall(file);
+  }
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (file) {
-      setLoading(true);
-      APICall(file);
+     helper(file);
     }
   }
 
@@ -49,9 +57,8 @@ export default function ResumeUpload() {
     accept: { 'application/pdf': ['.pdf'] },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
-      setLoading(true);
       const file = acceptedFiles[0];
-      APICall(file);
+      helper(file);
     },
     noClick: true,
   });
