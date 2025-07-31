@@ -6,7 +6,7 @@ export default function Navbar() {
           <img
             src="/logo.svg"
             alt="Logo"
-            className="w-6 h-6 bg-white rounded-full p-[2px]"
+            className="w-6 h-6 bg-white  p-[2px]"
           />
           ResumeMatch <span className="sm:inline">AI</span>
         </h1>

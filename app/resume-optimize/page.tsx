@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
 import { CheckCheck } from "lucide-react";
-import { inter } from "@/lib/fonts";
+import { inter ,plusJakarta } from "@/lib/fonts";
 
 export default function ResumeOptimize() {
     const parsedText = useStore((state) => (state.parsedText));
@@ -49,7 +49,7 @@ export default function ResumeOptimize() {
             {tips && tips.length > 0 && (
                 <div className="mt-20 px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto">
                     <div className="mt-10 mb-10">
-                        <p className="text-lg sm:text-xl font-semibold text-white mb-4 text-center sm:text-left">
+                        <p className={`text-lg sm:text-xl ${plusJakarta.variable} font-medium text-white/40 mb-4 text-center sm:text-left`}>
                             Here are some tips to optimize your resume:
                         </p>
                     </div>
@@ -61,7 +61,7 @@ export default function ResumeOptimize() {
                                 className="flex items-start gap-3 text-sm hover:bg-white/20 hover:text-black text-gray-400 bg-white/5 p-4 rounded-xl shadow-sm transition-colors"
                             >
                                 <CheckCheck className="text-blue-600 mt-1 text-xl shrink-0" />
-                                <p className={`${inter.variable} text-base sm:text-lg font-medium leading-snug`}>
+                                <p className={`${inter.variable} text-base sm:text-lg font-semibold leading-snug`}>
                                     {tip}
                                 </p>
                             </div>

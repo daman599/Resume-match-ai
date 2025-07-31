@@ -7,7 +7,7 @@ const app_key = process.env.APP_KEY;
 
 export async function FetchandCacheJobs(){
     const cacheKey : string = "latest_jobs";
-    const cache : unknown = await redis.get(cacheKey);
+    const cache = await redis.get(cacheKey);
     
     if(cache){
         return {latest_jobs:cache};

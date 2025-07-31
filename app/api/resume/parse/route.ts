@@ -28,11 +28,11 @@ export async function POST(request: NextRequest) {
               });
        })
 
-       const parsedText = parsedData.Pages.flatMap((p) => {
-              return p.Texts.map((t) => {
-                     return decodeURIComponent(t.R[0].T).replace(/\s+/g, " ")
-              })
-       }).join(" ");
+       const parsedText = parsedData.Pages.flatMap((p) => (
+               p.Texts.map((t) => (
+                    decodeURIComponent(t.R[0].T).replace(/\s+/g, " ")
+               ))
+       )).join(" ");
 
        return NextResponse.json({ parsedText : parsedText });
 }
