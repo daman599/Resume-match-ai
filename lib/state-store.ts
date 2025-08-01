@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-type JobType = {
+interface Job {
     _id: string,
     jobId: string,
     title: string,
@@ -13,11 +13,11 @@ type JobType = {
     __v: number,
 }
 
-type StateType = {
+interface StateType {
     parsedText : string,
     updateParsedText : (text : string) => void ,
-    jobs : JobType[],
-    updateJobs : (jobs :JobType[]) => void ,
+    jobs : Job[],
+    updateJobs : (jobs :Job[]) => void ,
     tips : string[],
     updateTips : ( tips :string[]) => void ,
 }
