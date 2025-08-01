@@ -102,7 +102,7 @@ export default function ResumeUpload() {
           >
             <input {...getInputProps()} />
 
-            <UploadCloud className="text-blue-400 animate-pulse" size={40} />
+            <UploadCloud className="text-[#0096FF] animate-pulse" size={40} />
 
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
               Drag and drop your resume here
