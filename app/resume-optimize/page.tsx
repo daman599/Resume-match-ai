@@ -5,9 +5,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
-import { CheckCheck } from "lucide-react";
-import { inter, plusJakarta } from "@/lib/fonts";
+import { plusJakarta } from "@/lib/fonts";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
+import AnimatedList from "@/components/ui/AnimatedList";
 
 export default function ResumeOptimize() {
     const parsedText = useStore((state) => (state.parsedText));
@@ -60,25 +60,19 @@ export default function ResumeOptimize() {
         <>
             {tips && tips.length > 0 && (
                 <div className="mt-20 px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto">
-                    <div className="mt-10 mb-10">
-                        <p className={`text-lg sm:text-xl ${plusJakarta.variable} font-medium text-white/40 mb-4 text-center sm:text-left`}>
+                    <div className="py-8 ml-5 mr-5">
+                        <p className={`text-2xl sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] mb-4 text-center sm:text-left`}>
                             Here are some tips to optimize your resume:
                         </p>
                     </div>
-
-                    <div className="space-y-4">
-                        {tips.map((tip, index) => (
-                            <div
-                                key={index}
-                                className="flex items-start gap-3 text-sm hover:bg-white/20 hover:text-black text-gray-400 bg-white/5 p-4 rounded-xl shadow-sm transition-colors"
-                            >
-                                <CheckCheck className="text-blue-600 mt-1 text-xl shrink-0" />
-                                <p className={`${inter.variable} text-base sm:text-lg font-semibold leading-snug`}>
-                                    {tip}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                        
+                   <AnimatedList
+                     items = {tips}
+                     showGradients = {false}
+                     enableArrowNavigation = {true}
+                     displayScrollbar = {false}
+                   />
+                   
                 </div>
             )}
         </>
