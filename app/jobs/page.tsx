@@ -10,6 +10,7 @@ import { inter, plusJakarta } from "@/lib/fonts";
 import { useRouter } from "next/navigation";
 import BlurText from "@/components/ui/BlurText";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
+import SpotlightCard from "@/components/ui/SpotlightCard";
 
 export default function Jobs() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,19 +80,19 @@ export default function Jobs() {
               className={`text-xl sm:text-2xl md:text-3xl text-[#0096FF] ${inter.variable}`}
             />
           </div>
-
+          
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {jobs.map((job) => (
-                <div
-                  key={job.jobId}
+                  <SpotlightCard  key={job.jobId}
                   className="border-2 overflow border-gray-600 bg-black p-4 rounded-3xl shadow-md text-gray-300 w-full"
-                >
+                  >
+
                   <p className={`text-lg sm:text-xl mb-1 font-semibold ${inter.variable}`}>
                     {job.title}
                   </p>
 
-                  <div className="mt-3 mb-3 space-y-1">
+                <div className="mt-3 mb-3 space-y-1">
                     <div className={`flex gap-2 ${inter.variable} text-gray-600 text-sm`}>
                       <Building2 />
                       <p className="mt-1">{job.company}</p>
@@ -104,7 +105,6 @@ export default function Jobs() {
                       <Dot />
                       <p className="mt-1">{job.jobCategory}</p>
                     </div>
-                  </div>
 
                   <a
                     href={job.redirect_url}
@@ -119,6 +119,7 @@ export default function Jobs() {
                     {job.description}
                   </p>
                 </div>
+                  </SpotlightCard>
               ))}
             </div>
           </div>
