@@ -68,19 +68,18 @@ export default function Jobs() {
 
   return (
     <>
-
       {jobs && jobs.length > 0 && (
-        <div className="px-4 py-20">
+       <div className="px-4 py-10 sm:px-6 sm:py-12 md:px-10 md:py-16 lg:py-20">
+  <div className="w-full max-w-7xl mx-auto text-center mb-8 sm:mb-10 mt-8 sm:mt-10">
+    <BlurText
+      text="Here are the latest jobs matching to your profile:"
+      delay={150}
+      animateBy="words"
+      direction="top"
+      className={`text-xl md:text-2xl sm:text-4xl  lg:text-3xl text-[#0096FF] ${plusJakarta.variable} font-medium`}
+    />
+  </div>
 
-          <div className="w-full max-w-7xl mx-auto text-center mb-10 mt-10">
-            <BlurText
-              text="Here are the latest jobs matching to your profile:"
-              delay={150}
-              animateBy="words"
-              direction="top"
-              className={`text-xl sm:text-2xl md:text-3xl text-[#0096FF] ${plusJakarta.variable} font-medium`}
-            />
-          </div>
 
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -116,7 +115,7 @@ export default function Jobs() {
                       View Job
                     </a>
 
-                    <p className={`line-clamp-4 ${plusJakarta.variable} text-base text-gray-600 mt-2`}>
+                    <p className={` ${plusJakarta.variable} text-base text-gray-600 mt-2`}>
                       {job.description}
                     </p>
                   </div>
