@@ -37,19 +37,19 @@ export default function ResumeUpload() {
       setError(true);
     }
   }
-  
-  function helper(file:File){
-      updateJobs([]);
-      updateTips([]);
-      setLoading(true);
-      APICall(file);
+
+  function helper(file: File) {
+    updateJobs([]);
+    updateTips([]);
+    setLoading(true);
+    APICall(file);
   }
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (file) {
-     helper(file);
+      helper(file);
     }
   }
 
@@ -90,10 +90,12 @@ export default function ResumeUpload() {
           />
         </div>
 
-        <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-64px)] px-4">
+        <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-8">
           <div
             {...getRootProps()}
-            className="w-full max-w-md sm:max-w-xl p-4 sm:p-6 md:p-8
+            className="w-full 
+        max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl 
+        p-4 sm:p-6 md:p-8                    
         rounded-3xl border border-white/20 border-dashed 
         bg-white/5 backdrop-blur-xl shadow-2xl 
         flex flex-col items-center justify-center 
@@ -104,7 +106,7 @@ export default function ResumeUpload() {
 
             <UploadCloud className="text-[#0096FF] animate-pulse" size={40} />
 
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white">
               Drag and drop your resume here
             </h1>
 
@@ -114,7 +116,9 @@ export default function ResumeUpload() {
 
             <button
               onClick={() => inputRef.current?.click()}
-              className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-md text-sm sm:text-base
+              className="px-4 py-2 sm:px-6 sm:py-3  
+          text-xs sm:text-sm md:text-base    
+          rounded-md 
           bg-white/10 border border-white/20 text-white font-medium
           hover:bg-white/20 hover:shadow-md focus:outline-none
           focus:ring-2 focus:ring-white/30 transition duration-200 cursor-pointer"
@@ -132,6 +136,7 @@ export default function ResumeUpload() {
           </div>
         </div>
       </div>
+
     </>
   );
 }
