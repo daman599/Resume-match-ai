@@ -87,7 +87,7 @@ export default function Jobs() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {jobs.map((job) => (
                 <SpotlightCard
-                  key={job.jobId}
+                  key={job._id}
                   className="border-2 overflow border-gray-600 bg-black p-4 rounded-3xl shadow-md text-gray-300 w-full"
                 >
                   <p className={`text-lg sm:text-xl mb-1 font-semibold ${inter.variable}`}>
