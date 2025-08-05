@@ -8,8 +8,11 @@ import Loader from "@/components/helperComponents/Loader";
 import { plusJakarta } from "@/lib/fonts";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
 import AnimatedList from "@/components/ui/AnimatedList";
+import { signIn, useSession } from "next-auth/react";
 
 export default function ResumeOptimize() {
+
+    const session = useSession();
     const parsedText = useStore((state) => (state.parsedText));
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -17,7 +20,7 @@ export default function ResumeOptimize() {
     const setTips = useStore((state) => (state.updateTips));
     const [hasResume, setHasResume] = useState<boolean>(true);
 
-    async function call() {
+    async function ApiCall() {
         try {
             const response = await axios.post("/api/resume/optimize", { resumeText: parsedText });
             setTips(response.data.tips);
@@ -28,16 +31,29 @@ export default function ResumeOptimize() {
         }
     }
     useEffect(() => {
-        if (tips.length > 0) {
-            return;
+         if (session.status === "loading") return;
+         
+        async function checkAuth() {
+            if (session.status === "authenticated") {
+                if (tips.length > 0) {
+                    return;
+                }
+                if (parsedText === "") {
+                    setHasResume(false);
+                    return;
+                }
+                else{
+                    setLoading(true);
+                    ApiCall();
+                }
+            }
+            else if (session.status === "unauthenticated") {
+                await signIn("google");
+                return;
+            }
         }
-        if (parsedText === "") {
-            setHasResume(false);
-            return;
-        }
-        setLoading(true);
-        call();
-    }, [])
+        checkAuth();
+    }, [session])
 
     if (error) {
         return <ErrorComponent />
@@ -65,14 +81,14 @@ export default function ResumeOptimize() {
                             Here are some tips to optimize your resume:
                         </p>
                     </div>
-                        
-                   <AnimatedList
-                     items = {tips}
-                     showGradients = {false}
-                     enableArrowNavigation = {true}
-                     displayScrollbar = {false}
-                   />
-                   
+
+                    <AnimatedList
+                        items={tips}
+                        showGradients={false}
+                        enableArrowNavigation={true}
+                        displayScrollbar={false}
+                    />
+
                 </div>
             )}
         </>
