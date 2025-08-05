@@ -19,9 +19,9 @@ export default function Navbar() {
         <h1 className="text-sm sm:text-base lg:text-lg font-semibold 
                        flex items-center gap-2 text-white">
           <img
-            src="/logo.svg"
+            src="/icon.svg"
             alt="Logo"
-            className="w-6 h-6 sm:w-6 sm:h-6 bg-white p-[2px] rounded-full"
+            className="w-6 h-6 sm:w-6 sm:h-6 bg-white p-[3px] rounded-xl"
           />
           ResumeMatch AI
         </h1>
