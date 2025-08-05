@@ -57,7 +57,10 @@ export default function Jobs() {
   if (!hasResume) {
     return <NoResumeMessage>
       <p className="text-xl text-gray-400">Please provide
-        <span className="text-[#0096FF] ml-1.5">resume</span> to get job recommendations.</p>
+        <button onClick={()=>{
+          router.push("/resume-upload");
+        }}
+         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</button> to get job recommendations.</p>
     </NoResumeMessage>
   }
 

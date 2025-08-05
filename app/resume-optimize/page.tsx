@@ -32,7 +32,6 @@ export default function ResumeOptimize() {
     }
     useEffect(() => {
          if (session.status === "loading") return;
-         
         async function checkAuth() {
             if (session.status === "authenticated") {
                 if (tips.length > 0) {
