@@ -1,16 +1,7 @@
 'use client'
-import axios from "axios";
+import { signIn } from "next-auth/react";
 
 export default function Navbar() {
-  async function handleSignin() {
-    try {
-      const response = await axios.get("/api/auth");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Signin failed", error);
-    }
-  }
-
   return (
     <nav className="fixed top-0 left-0 w-full z-50 
                     bg-black/40 backdrop-blur-md border-b border-white/10 
@@ -27,7 +18,9 @@ export default function Navbar() {
         </h1>
 
         <button
-          onClick={handleSignin}
+          onClick={async ()=>{
+            await signIn();
+          }}
           className="bg-white/10 border border-white/20 
                      px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-white 
                      flex items-center gap-1 sm:gap-2 text-xs sm:text-sm 
