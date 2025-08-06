@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface Job {
+export interface Job {
     _id: string,
     jobId: string,
     title: string,
@@ -22,7 +22,7 @@ interface StateType {
     updateTips : ( tips :string[]) => void ,
 }
 
-const useStore = create<StateType>((set) => (
+export const useStore = create<StateType>((set) => (
      {
         parsedText : "", 
         updateParsedText : (text) => set({ parsedText : text }),
@@ -32,5 +32,3 @@ const useStore = create<StateType>((set) => (
         updateTips : (tips) => set({ tips }),
      }
 ))
-
-export default useStore;

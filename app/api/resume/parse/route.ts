@@ -9,6 +9,7 @@ type ParsedPDFtype = {
        }[];
 };
 export async function POST(request: NextRequest) {
+
        const formData = await request.formData();
        const file = formData.get("resume") as File;
 
@@ -34,5 +35,5 @@ export async function POST(request: NextRequest) {
                ))
        )).join(" ");
 
-       return NextResponse.json({ parsedText : parsedText });
+       return NextResponse.json({ parsedText });
 }

@@ -5,17 +5,19 @@ import { UploadCloud } from 'lucide-react';
 import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
-import Loader from "@/components/helperComponents/Loader";
-import useStore from "@/lib/state-store";
+import { useStore } from "@/lib/state-store";
 import ErrorComponent from "@/components/helperComponents/Error";
+import Loader from "@/components/helperComponents/Loader";
 import LightRays from "@/components/ui/LightRays";
 
 export default function ResumeUpload() {
 
+  const router = useRouter();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const router = useRouter();
+
   const updateParsedText = useStore((state) => state.updateParsedText);
   const updateJobs = useStore((state) => state.updateJobs);
   const updateTips = useStore((state) => state.updateTips);
@@ -33,7 +35,6 @@ export default function ResumeUpload() {
         router.push("/jobs");
       }
     } catch (err) {
-      console.log("ERROR", err);
       setError(true);
     }
   }
@@ -45,14 +46,6 @@ export default function ResumeUpload() {
     APICall(file);
   }
 
-  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      helper(file);
-    }
-  }
-
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'application/pdf': ['.pdf'] },
     maxFiles: 1,
@@ -62,6 +55,10 @@ export default function ResumeUpload() {
     },
     noClick: true,
   });
+  
+   if (error) {
+        return <ErrorComponent />
+    }
 
   if (loading) {
     return (
@@ -73,7 +70,6 @@ export default function ResumeUpload() {
 
   return (
     <>
-      {error && <ErrorComponent />}
       <div className="relative min-h-screen bg-black overflow-hidden pt-16">
         <div className="absolute inset-0 z-0">
           <LightRays
@@ -130,13 +126,18 @@ export default function ResumeUpload() {
               type="file"
               ref={inputRef}
               accept=".pdf"
-              onChange={handleOnChange}
+              onChange={(e : React.ChangeEvent<HTMLInputElement>)  =>{
+                const file = e.target.files?.[0];
+
+                if (file) {
+                  helper(file);
+                }
+              }}
               className="hidden"
             />
           </div>
         </div>
       </div>
-
     </>
   );
 }

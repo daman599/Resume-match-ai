@@ -1,7 +1,6 @@
 'use client'
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [char, setChar] = useState<string | null>(null);
@@ -44,7 +43,7 @@ export default function Navbar() {
 
               {showProfile && (
                 <div className="absolute right-2 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
-                  <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-200">
+                  <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
                     <p className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</p>
                     <img
                       src={session.data?.user?.image!}
@@ -60,14 +59,12 @@ export default function Navbar() {
                     Sign out
                   </button>
                 </div>
-
-
               )}
             </>
           ) : (
             <button
               onClick={async () => {
-                await signIn();
+                await signIn("google");
               }}
               className="bg-white/10 border border-white/20 
             px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-white 

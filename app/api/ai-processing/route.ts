@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Groq } from 'groq-sdk';
-import mongoose from "mongoose";
-import { FetchandCacheJobs } from "../../../lib/fetch-jobs"
-
-await mongoose.connect(process.env.MONGODB_URI!);
+import { FetchandCacheJobs } from "@/lib/fetch-jobs"
+import { Job } from "@/lib/state-store";
 
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
@@ -13,12 +11,12 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const resumeText = body.resumeText;
+    
+    try{
 
     const object = await FetchandCacheJobs();
     const latestJobs = object.latest_jobs;
     
-    try{
-
     const completion = await groq.chat.completions.create({
       model: `llama-3.3-70b-versatile`,
       messages: [
@@ -65,7 +63,7 @@ export async function POST(req: NextRequest) {
     });
     
      const content:string | null = completion.choices[0]?.message?.content;
-     const suitableJobs:object[] = content ? JSON.parse(content) : [];
+     const suitableJobs:Job[] = content ? JSON.parse(content) : [];
      return NextResponse.json({ suitableJobs: suitableJobs});
 
     }catch(err:any){

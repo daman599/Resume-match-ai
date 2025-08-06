@@ -1,24 +1,27 @@
 'use client'
 
-import useStore from "@/lib/state-store";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useStore } from "@/lib/state-store";
+import { useRouter } from "next/navigation";
+import { plusJakarta } from "@/lib/fonts";
 import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
-import { plusJakarta } from "@/lib/fonts";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
 import AnimatedList from "@/components/ui/AnimatedList";
-import { signIn, useSession } from "next-auth/react";
+import axios from "axios";
 
 export default function ResumeOptimize() {
 
     const session = useSession();
+    const router = useRouter();
     const parsedText = useStore((state) => (state.parsedText));
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
     const tips = useStore((state) => (state.tips));
     const setTips = useStore((state) => (state.updateTips));
+
     const [hasResume, setHasResume] = useState<boolean>(true);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     async function ApiCall() {
         try {
@@ -30,13 +33,12 @@ export default function ResumeOptimize() {
             setLoading(false)
         }
     }
+
     useEffect(() => {
-         if (session.status === "loading") return;
+
         async function checkAuth() {
             if (session.status === "authenticated") {
-                if (tips.length > 0) {
-                    return;
-                }
+            
                 if (parsedText === "") {
                     setHasResume(false);
                     return;
@@ -49,6 +51,8 @@ export default function ResumeOptimize() {
             else if (session.status === "unauthenticated") {
                 await signIn("google");
                 return;
+            }else{
+               return;
             }
         }
         checkAuth();
@@ -61,7 +65,10 @@ export default function ResumeOptimize() {
     if (!hasResume) {
         return <NoResumeMessage>
             <p className="text-xl text-gray-400">Please provide
-                <span className="text-[#0096FF] ml-1.5">resume</span> to get tips to optimize it.</p>
+                <button onClick={()=>{
+          router.push("/resume-upload");
+        }}
+         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</button> to get tips to optimize it.</p>
         </NoResumeMessage>
     }
 

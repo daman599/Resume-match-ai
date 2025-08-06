@@ -1,26 +1,28 @@
 'use client'
 
-import useStore from "@/lib/state-store";
 import axios from "axios";
-import Loader from "@/components/helperComponents/Loader";
+import { useStore } from "@/lib/state-store";
 import { useState, useEffect } from "react";
-import ErrorComponent from "@/components/helperComponents/Error";
-import { Building2, MapPin, Dot } from "lucide-react";
-import { inter, plusJakarta } from "@/lib/fonts";
 import { useRouter } from "next/navigation";
-import BlurText from "@/components/ui/BlurText";
+import { Building2, MapPin, Dot , MoveUpRight } from "lucide-react";
+import { inter, plusJakarta } from "@/lib/fonts";
+import Loader from "@/components/helperComponents/Loader";
+import ErrorComponent from "@/components/helperComponents/Error";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
+import BlurText from "@/components/ui/BlurText";
 import SpotlightCard from "@/components/ui/SpotlightCard";
-import { MoveUpRight } from "lucide-react";
 
 export default function Jobs() {
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [hasResume, setHasResume] = useState<boolean>(true);
+
   const parsedText = useStore((state) => (state.parsedText));
   const setJobs = useStore((state) => (state.updateJobs));
   const jobs = useStore((state) => (state.jobs));
+
   const router = useRouter();
-  const [hasResume, setHasResume] = useState<boolean>(true);
 
   async function APIcall() {
     try {
@@ -37,9 +39,6 @@ export default function Jobs() {
   }
 
   useEffect(() => {
-    if (jobs.length > 0) {
-      return;
-    }
 
     if (parsedText === "") {
       setHasResume(false);
@@ -134,7 +133,7 @@ export default function Jobs() {
           <div className="w-full flex justify-center px-4 sm:px-6 mt-12 sm:mt-16">
             <button
               onClick={() => router.push("/resume-optimize")}
-              className="flex flex-col items-center justify-center space-y-4 text-center text-xl"
+              className="flex flex-col items-center justify-center space-y-4 text-center text-xl cursor-pointer"
             >
               <div className="flex items-center gap-2 border-2 border-gray-600 rounded-full px-4 py-2 hover:border-[#0096FF] transition-colors">
                 <Dot
