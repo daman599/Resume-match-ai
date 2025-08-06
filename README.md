@@ -7,21 +7,13 @@ More info at:
 ✨ Features
 
 🧠 Smart resume analysis using AI (Groq API)
-
 🔍 Personalized job matching based on your skills
-
 📄 Upload and parse resumes in PDF format
-
 💡 AI generated actionable suggestions to improve your resume
-
 🔐 Secure authentication with Google (via NextAuth)
-
 💾 Lightning-fast job caching with Upstash Redis
-
 ⚡ Lightweight and global state management using Zustand
-
 🌐 Fully responsive and modern UI with Tailwind CSS
-
 
 🛠 Tech Stack
 
