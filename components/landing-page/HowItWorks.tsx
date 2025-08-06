@@ -34,7 +34,7 @@ export default function HowItWorks() {
             key={i}
           >
 
-            <div className="space-y-2 border-b border-white/10 pb-6">
+            <div className={`space-y-2  ${i !== 3 ? "border-b border-white/10" : ""} pb-6`}>
               <div className="flex items-center gap-3">
                 {icon}
                 <h3 className="text-white font-semibold text-base md:text-lg">

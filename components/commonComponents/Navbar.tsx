@@ -1,6 +1,7 @@
 'use client'
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import Link from 'next/link';
 
 export default function Navbar() {
   const [char, setChar] = useState<string | null>(null);
@@ -18,6 +19,8 @@ export default function Navbar() {
                     bg-black/40 backdrop-blur-md border-b border-white/10 
                     px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <Link href = {process.env.NEXT_PUBLIC_BASE_URL!} >
         <h1 className="text-sm sm:text-base lg:text-lg font-semibold 
                        flex items-center gap-2 text-white">
           <img
@@ -27,6 +30,8 @@ export default function Navbar() {
           />
           ResumeMatch AI
         </h1>
+        </Link>
+
         <div className="relative" >
           {char ? (
             <>

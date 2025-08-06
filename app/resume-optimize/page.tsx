@@ -3,18 +3,17 @@
 import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useStore } from "@/lib/state-store";
-import { useRouter } from "next/navigation";
 import { plusJakarta } from "@/lib/fonts";
 import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
 import AnimatedList from "@/components/ui/AnimatedList";
 import axios from "axios";
+import Link from "next/link";
 
 export default function ResumeOptimize() {
 
     const session = useSession();
-    const router = useRouter();
     const parsedText = useStore((state) => (state.parsedText));
     const tips = useStore((state) => (state.tips));
     const setTips = useStore((state) => (state.updateTips));
@@ -65,10 +64,8 @@ export default function ResumeOptimize() {
     if (!hasResume) {
         return <NoResumeMessage>
             <p className="text-xl text-gray-400">Please provide
-                <button onClick={()=>{
-          router.push("/resume-upload");
-        }}
-         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</button> to get tips to optimize it.</p>
+              <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
+         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get tips to optimize it.</p>
         </NoResumeMessage>
     }
 

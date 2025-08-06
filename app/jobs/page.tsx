@@ -1,9 +1,9 @@
 'use client'
 
 import axios from "axios";
+import Link from "next/link";
 import { useStore } from "@/lib/state-store";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { Building2, MapPin, Dot , MoveUpRight } from "lucide-react";
 import { inter, plusJakarta } from "@/lib/fonts";
 import Loader from "@/components/helperComponents/Loader";
@@ -21,8 +21,6 @@ export default function Jobs() {
   const parsedText = useStore((state) => (state.parsedText));
   const setJobs = useStore((state) => (state.updateJobs));
   const jobs = useStore((state) => (state.jobs));
-
-  const router = useRouter();
 
   async function APIcall() {
     try {
@@ -56,10 +54,8 @@ export default function Jobs() {
   if (!hasResume) {
     return <NoResumeMessage>
       <p className="text-xl text-gray-400">Please provide
-        <button onClick={()=>{
-          router.push("/resume-upload");
-        }}
-         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</button> to get job recommendations.</p>
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
+         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get job recommendations.</p>
     </NoResumeMessage>
   }
 
@@ -131,8 +127,8 @@ export default function Jobs() {
           </div>
 
           <div className="w-full flex justify-center px-4 sm:px-6 mt-12 sm:mt-16">
-            <button
-              onClick={() => router.push("/resume-optimize")}
+            
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-optimize`}
               className="flex flex-col items-center justify-center space-y-4 text-center text-xl cursor-pointer"
             >
               <div className="flex items-center gap-2 border-2 border-gray-600 rounded-full px-4 py-2 hover:border-[#0096FF] transition-colors">
@@ -146,7 +142,7 @@ export default function Jobs() {
                   Get tips to optimize resume.
                 </p>
               </div>
-            </button>
+            </Link>
           </div>
 
         </div>
