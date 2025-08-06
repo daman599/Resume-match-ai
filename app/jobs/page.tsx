@@ -37,6 +37,10 @@ export default function Jobs() {
   }
 
   useEffect(() => {
+    
+    if(jobs.length > 0){
+      return ;
+    }
 
     if (parsedText === "") {
       setHasResume(false);
@@ -54,8 +58,10 @@ export default function Jobs() {
   if (!hasResume) {
     return <NoResumeMessage>
       <p className="text-xl text-gray-400">Please provide
+
         <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
          className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get job recommendations.</p>
+
     </NoResumeMessage>
   }
 
@@ -67,7 +73,7 @@ export default function Jobs() {
 
   return (
     <>
-      {jobs && jobs.length > 0 && (
+      {jobs.length > 0 && (
         <div className="px-4 py-10 sm:px-6 sm:py-12 md:px-10 md:py-16 lg:py-20">
 
           <div className="w-full max-w-7xl mx-auto text-center mb-8 sm:mb-10 mt-8 sm:mt-10">
@@ -127,7 +133,7 @@ export default function Jobs() {
           </div>
 
           <div className="w-full flex justify-center px-4 sm:px-6 mt-12 sm:mt-16">
-            
+
             <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-optimize`}
               className="flex flex-col items-center justify-center space-y-4 text-center text-xl cursor-pointer"
             >

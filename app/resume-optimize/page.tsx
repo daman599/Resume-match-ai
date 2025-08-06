@@ -22,7 +22,7 @@ export default function ResumeOptimize() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    async function ApiCall() {
+    async function ApiCall() {[]
         try {
             const response = await axios.post("/api/resume/optimize", { resumeText: parsedText });
             setTips(response.data.tips);
@@ -37,21 +37,21 @@ export default function ResumeOptimize() {
 
         async function checkAuth() {
             if (session.status === "authenticated") {
-            
+
                 if (parsedText === "") {
                     setHasResume(false);
                     return;
                 }
-                else{
-                    setLoading(true);
-                    ApiCall();
+                else if (tips.length > 0) {
+                    return;
                 }
+
+                setLoading(true);
+                ApiCall();
             }
             else if (session.status === "unauthenticated") {
                 await signIn("google");
                 return;
-            }else{
-               return;
             }
         }
         checkAuth();
@@ -64,8 +64,8 @@ export default function ResumeOptimize() {
     if (!hasResume) {
         return <NoResumeMessage>
             <p className="text-xl text-gray-400">Please provide
-              <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
-         className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get tips to optimize it.</p>
+                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
+                    className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get tips to optimize it.</p>
         </NoResumeMessage>
     }
 
@@ -77,7 +77,7 @@ export default function ResumeOptimize() {
 
     return (
         <>
-            {tips && tips.length > 0 && (
+            {tips.length > 0 && (
                 <div className="mt-20 px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto">
                     <div className="py-8 ml-5 mr-5">
                         <p className={`text-2xl sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] mb-4 text-center sm:text-left`}>
