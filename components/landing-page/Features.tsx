@@ -8,7 +8,7 @@ const features = [
   },
   {
     title: "Resume Optimization Tips",
-    description: " Receive AI-driven insights and actionable advice to refine your resume and cover letter, significantly boosting your chances of securing interviews.",
+    description: "Receive AI-driven insights and actionable advice to refine your resume and cover letter, significantly boosting your chances of securing interviews.",
   }
 ]
 
@@ -26,20 +26,24 @@ export default function Features() {
             className="relative bg-black/40 border border-white/10 rounded-xl 
                         p-5 sm:p-6 md:p-8 backdrop-blur-md overflow-hidden">
 
-            <div className="absolute inset-0">
+            {/* Background Image */}
+            <div className="absolute inset-0 -z-10">
               <Image
                 src="/bg-network.jpg"
                 alt="Network"
-                className="w-full h-full object-cover opacity-30"
+                fill
+                className="object-cover opacity-30 rounded-xl"
               />
             </div>
 
+            {/* Content */}
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
-                {index == 0 ?
-                  (<Sparkles size={26} className="text-blue-400" />)
-                  :
-                  (<ClipboardList size={26} className="text-blue-400" />)}
+                {index === 0 ? (
+                  <Sparkles size={26} className="text-blue-400" />
+                ) : (
+                  <ClipboardList size={26} className="text-blue-400" />
+                )}
                 <h3 className="text-base sm:text-lg md:text-xl font-semibold">
                   {feature.title}
                 </h3>
@@ -49,8 +53,7 @@ export default function Features() {
               </p>
             </div>
           </div>
-        ))
-        }
+        ))}
       </div>
     </section>
   );
