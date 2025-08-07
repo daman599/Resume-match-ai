@@ -37,18 +37,16 @@ export default function Jobs() {
   }
 
   useEffect(() => {
-    
-    if(jobs.length > 0){
-      return ;
-    }
 
     if (parsedText === "") {
       setHasResume(false);
       return;
     }
-
-    setLoading(true);
-    APIcall();
+    
+    if(jobs.length === 0){
+      setLoading(true);
+      APIcall();
+    }
   }, [])
 
   if (error) {

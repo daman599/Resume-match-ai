@@ -42,12 +42,10 @@ export default function ResumeOptimize() {
                     setHasResume(false);
                     return;
                 }
-                else if (tips.length > 0) {
-                    return;
+                else if (tips.length === 0) {
+                  setLoading(true);
+                  ApiCall();
                 }
-
-                setLoading(true);
-                ApiCall();
             }
             else if (session.status === "unauthenticated") {
                 await signIn("google");
