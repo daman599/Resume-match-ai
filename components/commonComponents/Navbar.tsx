@@ -2,6 +2,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from 'next/link';
+import Image from "next/image";
 
 export default function Navbar() {
   const [char, setChar] = useState<string | null>(null);
@@ -23,7 +24,7 @@ export default function Navbar() {
         <Link href = {process.env.NEXT_PUBLIC_BASE_URL!} >
         <h1 className="text-sm sm:text-base lg:text-lg font-semibold 
                        flex items-center gap-2 text-white">
-          <img
+          <Image
             src="/icon.svg"
             alt="Logo"
             className="w-6 h-6 sm:w-6 sm:h-6 bg-white p-[3px] rounded-xl"
@@ -50,7 +51,7 @@ export default function Navbar() {
                 <div className="absolute right-2 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
                   <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
                     <p className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</p>
-                    <img
+                    <Image
                       src={session.data?.user?.image!}
                       alt="User"
                       className="w-6 h-6 sm:w-7 sm:h-7 p-[1px] rounded-full border border-gray-300"

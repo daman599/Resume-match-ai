@@ -1,4 +1,5 @@
 import { Sparkles, ClipboardList } from 'lucide-react'
+import Image from 'next/image';
 
 const features = [
   {
@@ -26,7 +27,7 @@ export default function Features() {
                         p-5 sm:p-6 md:p-8 backdrop-blur-md overflow-hidden">
 
             <div className="absolute inset-0">
-              <img
+              <Image
                 src="/bg-network.jpg"
                 alt="Network"
                 className="w-full h-full object-cover opacity-30"

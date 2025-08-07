@@ -47,7 +47,7 @@ export default function Jobs() {
       setLoading(true);
       APIcall();
     }
-  }, [])
+  },[])
 
   if (error) {
     return <ErrorComponent />

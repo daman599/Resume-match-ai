@@ -26,7 +26,8 @@ export default function ResumeOptimize() {
         try {
             const response = await axios.post("/api/resume/optimize", { resumeText: parsedText });
             setTips(response.data.tips);
-        } catch (err) {
+        } catch (err:unknown) {
+            console.log("Something went wrong" ,err)
             setError(true);
         } finally {
             setLoading(false)
