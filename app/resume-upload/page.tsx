@@ -34,7 +34,8 @@ export default function ResumeUpload() {
         updateParsedText(response.data.parsedText);
         router.push("/jobs");
       }
-    } catch (err) {
+    } catch (err :unknown) {
+      console.log("Error while uploading resume" , err);
       setError(true);
     }
   }

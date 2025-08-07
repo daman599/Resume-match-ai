@@ -66,7 +66,9 @@ export async function POST(req: NextRequest) {
      const suitableJobs:Job[] = content ? JSON.parse(content) : [];
      return NextResponse.json({ suitableJobs: suitableJobs});
 
-    }catch(err:any){
+    }catch(err : unknown){
+      console.error("AI processing failed:", err);
+      
       return NextResponse.json(
         {error : "Something went wrong"},
         {status : 500}

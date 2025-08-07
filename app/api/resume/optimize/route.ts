@@ -46,7 +46,9 @@ export async function POST(req: NextRequest) {
     const tips:string[] = response ? JSON.parse(response) : [];
     return NextResponse.json({ tips : tips });
 
-   }catch(err:any){
+   }catch(err:unknown){
+    console.error("AI based resume optimization failed:", err);
+
     return NextResponse.json(
         {error : "Something went wrong"},
         {status : 500}

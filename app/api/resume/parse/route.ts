@@ -4,7 +4,7 @@ import PDFParser from "pdf2json";
 type ParsedPDFtype = {
        Pages: {
               Texts: {
-                     R: any[];
+                      R: { T: string }[];
               }[];
        }[];
 };

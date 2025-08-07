@@ -29,7 +29,8 @@ export default function Jobs() {
       )
       setJobs(response.data.suitableJobs);
 
-    } catch (err) {
+    } catch (err :unknown) {
+      console.log("Jobs fetching failed" , err)
       setError(true);
     } finally {
       setLoading(false);
@@ -37,11 +38,10 @@ export default function Jobs() {
   }
 
   useEffect(() => {
-
     if (parsedText === "") {
-      setHasResume(false);
-      return;
-    }
+       setHasResume(false);
+       return;
+      }
     
     if(jobs.length === 0){
       setLoading(true);
