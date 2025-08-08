@@ -50,7 +50,7 @@ export default function Navbar() {
                   <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
                     <p className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</p>
                     <Image
-                      src={session.data?.user?.image!}
+                      src={session.data?.user?.image || "/user.png"}
                       alt="User"
                       width={28}
                       height={28}

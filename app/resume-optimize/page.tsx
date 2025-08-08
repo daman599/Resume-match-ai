@@ -22,7 +22,7 @@ export default function ResumeOptimize() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    async function ApiCall() {[]
+    async function ApiCall(){
         try {
             const response = await axios.post("/api/resume/optimize", { resumeText: parsedText });
             setTips(response.data.tips);
@@ -54,7 +54,7 @@ export default function ResumeOptimize() {
             }
         }
         checkAuth();
-    }, [session])
+    }, [session , parsedText , tips.length , ApiCall])
 
     if (error) {
         return <ErrorComponent />

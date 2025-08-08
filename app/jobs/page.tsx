@@ -22,7 +22,7 @@ export default function Jobs() {
   const setJobs = useStore((state) => (state.updateJobs));
   const jobs = useStore((state) => (state.jobs));
 
-  async function APIcall() {
+  async function APIcall(){
     try {
       const response = await axios.post("/api/ai-processing",
         { resumeText: parsedText }
@@ -47,7 +47,7 @@ export default function Jobs() {
       setLoading(true);
       APIcall();
     }
-  },[])
+  },[parsedText , jobs.length , APIcall])
 
   if (error) {
     return <ErrorComponent />
