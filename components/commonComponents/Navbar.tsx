@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href={process.env.NEXT_PUBLIC_BASE_URL || "/"}>
+        <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>
           <h1 className="text-sm sm:text-base lg:text-lg font-semibold flex items-center gap-2 text-white">
             <Image
               src="/icon.svg"
@@ -50,7 +50,7 @@ export default function Navbar() {
                   <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
                     <p className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</p>
                     <Image
-                      src={session.data?.user?.image || "/fallback-user.png"}
+                      src={session.data?.user?.image!}
                       alt="User"
                       width={28}
                       height={28}
