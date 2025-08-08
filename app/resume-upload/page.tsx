@@ -40,17 +40,16 @@ export default function ResumeUpload() {
   }
 
   function helper(file: File) {
-    const fileSize = file.size / (1024 * 1024);
+    try{
 
-    if(fileSize > 1){
+     updateJobs([]);
+     updateTips([]);
+     setLoading(true);
+     APICall(file);
+
+    }catch(err){
       setFileSizeError(true);
-      return;
     }
-
-    updateJobs([]);
-    updateTips([]);
-    setLoading(true);
-    APICall(file);
   }
 
   const { getRootProps, getInputProps } = useDropzone({
