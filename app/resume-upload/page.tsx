@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import { useStore } from "@/lib/state-store";
-import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
 
 export default function ResumeUpload() {
@@ -15,7 +14,6 @@ export default function ResumeUpload() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
   const [fileSizeError , setFileSizeError] = useState<boolean>(false);
   const updateParsedText = useStore((state) => state.updateParsedText);
   const updateJobs = useStore((state) => state.updateJobs);
@@ -35,22 +33,15 @@ export default function ResumeUpload() {
       }
     } catch (err :unknown) {
       console.log("Error while uploading resume" , err);
-      setError(true);
+      setFileSizeError(true);
     }
   }
 
   function helper(file: File) {
-    try{
-
      updateJobs([]);
      updateTips([]);
      setLoading(true);
      APICall(file);
-
-    }catch(err:unknown){
-      console.log("File size error " ,err);
-      setFileSizeError(true);
-    }
   }
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -72,11 +63,7 @@ export default function ResumeUpload() {
       </div>
     </div>
   }
-
-  if (error) {
-       return <ErrorComponent />
-  }
-
+  
   if (loading) {
     return (
       <Loader>
