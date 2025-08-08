@@ -50,11 +50,11 @@ export default function ResumeOptimize() {
             }
             else if (session.status === "unauthenticated") {
                 await signIn("google");
-                return;
             }
         }
         checkAuth();
-    }, [session , parsedText , tips.length , ApiCall])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [session ])
 
     if (error) {
         return <ErrorComponent />

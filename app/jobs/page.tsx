@@ -36,7 +36,8 @@ export default function Jobs() {
       setLoading(false);
     }
   }
-
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (parsedText === "") {
        setHasResume(false);
@@ -47,7 +48,7 @@ export default function Jobs() {
       setLoading(true);
       APIcall();
     }
-  },[parsedText , jobs.length , APIcall])
+  },[])
 
   if (error) {
     return <ErrorComponent />
