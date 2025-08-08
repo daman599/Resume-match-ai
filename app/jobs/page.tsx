@@ -27,7 +27,9 @@ export default function Jobs() {
       const response = await axios.post("/api/ai-processing",
         { resumeText: parsedText }
       )
+      if(response.data){
       setJobs(response.data.suitableJobs);
+      }
 
     } catch (err :unknown) {
       console.log("Jobs fetching failed" , err)

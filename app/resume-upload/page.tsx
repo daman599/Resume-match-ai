@@ -47,7 +47,8 @@ export default function ResumeUpload() {
      setLoading(true);
      APICall(file);
 
-    }catch(err){
+    }catch(err:unknown){
+      console.log("File size error " ,err);
       setFileSizeError(true);
     }
   }
