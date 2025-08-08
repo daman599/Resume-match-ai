@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import { useStore } from "@/lib/state-store";
-//import ErrorComponent from "@/components/helperComponents/Error";
+import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
 
 export default function ResumeUpload() {
@@ -15,7 +15,8 @@ export default function ResumeUpload() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  //const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const updateParsedText = useStore((state) => state.updateParsedText);
   const updateJobs = useStore((state) => state.updateJobs);
@@ -35,15 +36,22 @@ export default function ResumeUpload() {
       }
     } catch (err :unknown) {
       console.log("Error while uploading resume" , err);
-      //setError(true);
+      setError(true);
     }
   }
 
   function helper(file: File) {
+    if (isProcessing) return;
+  
+    setIsProcessing(true);
+
     updateJobs([]);
     updateTips([]);
     setLoading(true);
-    APICall(file);
+    APICall(file).finally( ()=>{
+      setIsProcessing(false);
+    }
+    );
   }
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -56,9 +64,9 @@ export default function ResumeUpload() {
     noClick: true,
   });
   
-   //if (error) {
-   //     return <ErrorComponent />
-    //}
+   if (error) {
+       return <ErrorComponent />
+   }
 
   if (loading) {
     return (
