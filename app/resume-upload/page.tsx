@@ -14,7 +14,6 @@ export default function ResumeUpload() {
   const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const mobileRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
@@ -124,39 +123,7 @@ export default function ResumeUpload() {
               className="hidden"
             />
           </div>
-          
-           {/* 📱 Mobile Simple Upload */}
-    <div className="block md:hidden w-full max-w-sm sm:max-w-md p-6 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/20 text-center shadow-2xl">
-      <UploadCloud className="text-[#0096FF] animate-pulse" size={40} />
-      <h1 className="text-lg font-bold text-white mb-4">
-        Upload your resume in pdf format
-      </h1>
-      <button
-              onClick={() => mobileRef.current?.click()}
-              className="px-4 py-2 sm:px-6 sm:py-3  
-          text-xs sm:text-sm md:text-base    
-          rounded-md 
-          bg-white/10 border border-white/20 text-white font-medium
-          hover:bg-white/20 hover:shadow-md focus:outline-none
-          focus:ring-2 focus:ring-white/30 transition duration-200 cursor-pointer"
-            >
-              Select File
-            </button>
-      <input
-        type="file"
-        accept=".pdf"
-        ref={mobileRef}
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file) helper(file);
-        }}
-        className="block w-full text-sm text-white file:mr-4 file:py-2 file:px-4
-                   file:rounded-md file:border-0
-                   file:text-sm file:font-semibold
-                   file:bg-blue-500 file:text-white
-                   hover:file:bg-blue-600 cursor-pointer"
-      />
-    </div>
+        
         </div>
       </div>
     </>
