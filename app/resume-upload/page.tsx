@@ -16,7 +16,7 @@ export default function ResumeUpload() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-
+  const [fileSizeError , setFileSizeError] = useState<boolean>(false);
   const updateParsedText = useStore((state) => state.updateParsedText);
   const updateJobs = useStore((state) => state.updateJobs);
   const updateTips = useStore((state) => state.updateTips);
@@ -40,7 +40,13 @@ export default function ResumeUpload() {
   }
 
   function helper(file: File) {
-  
+    const fileSize = file.size / (1024 * 1024);
+
+    if(fileSize > 1){
+      setFileSizeError(true);
+      return;
+    }
+
     updateJobs([]);
     updateTips([]);
     setLoading(true);
@@ -57,9 +63,19 @@ export default function ResumeUpload() {
     noClick: true,
   });
   
-   if (error) {
+  if(fileSizeError){
+    return  <div className="flex items-center justify-center h-screen w-screen px-4"> 
+      <div className="flex flex-col items-center justify-center 
+                      space-y-2 text-center text-white 
+                      text-sm sm:text-base md:text-lg"> 
+        <p>Your file is too large to process.</p>
+      </div>
+    </div>
+  }
+
+  if (error) {
        return <ErrorComponent />
-   }
+  }
 
   if (loading) {
     return (
