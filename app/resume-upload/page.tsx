@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useStore } from "@/lib/state-store";
 import ErrorComponent from "@/components/helperComponents/Error";
 import Loader from "@/components/helperComponents/Loader";
-import LightRays from "@/components/ui/LightRays";
 
 export default function ResumeUpload() {
 
@@ -72,20 +71,6 @@ export default function ResumeUpload() {
   return (
     <>
       <div className="relative min-h-screen bg-black overflow-hidden pt-16">
-        <div className="absolute inset-0 z-0">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#0096FF"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={1.2}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-            className="w-full h-full"
-          />
-        </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-8">
           <div
