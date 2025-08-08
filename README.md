@@ -2,7 +2,9 @@ ResumeMatch AI
 
 AI-powered resume analyzer that intelligently matches your resume with the most relevant and up-to-date job postings based on your skills and experience.
 
-More info at: 
+<img src="./public/image.png" alt="Landing-page image" width="600" />
+
+More info at: https://resume-match-ai-three.vercel.app
 
 ✨ Features
 
