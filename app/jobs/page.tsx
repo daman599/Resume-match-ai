@@ -37,7 +37,6 @@ export default function Jobs() {
     }
   }
   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (parsedText === "") {
        setHasResume(false);
@@ -48,6 +47,7 @@ export default function Jobs() {
       setLoading(true);
       APIcall();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   if (error) {
