@@ -7,14 +7,18 @@ import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import { useStore } from "@/lib/state-store";
 import Loader from "@/components/helperComponents/Loader";
+import ErrorComponent from "@/components/helperComponents/Error";
 
 export default function ResumeUpload() {
 
   const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const countErrorRef = useRef<number>(0);
+
   const [loading, setLoading] = useState<boolean>(false);
-  const [fileSizeError , setFileSizeError] = useState<boolean>(false);
+  const [error ,setError] = useState<boolean>(false);
+  
   const updateParsedText = useStore((state) => state.updateParsedText);
   const updateJobs = useStore((state) => state.updateJobs);
   const updateTips = useStore((state) => state.updateTips);
@@ -33,7 +37,8 @@ export default function ResumeUpload() {
       }
     } catch (err :unknown) {
       console.log("Error while uploading resume" , err);
-      setFileSizeError(true);
+      setError(true);
+      countErrorRef.current += 1;
     }
   }
 
@@ -54,14 +59,18 @@ export default function ResumeUpload() {
     noClick: true,
   });
   
-  if(fileSizeError){
-    return  <div className="flex items-center justify-center h-screen w-screen px-4"> 
+  if(countErrorRef.current === 3){
+    return <div className="flex items-center justify-center h-screen w-screen px-4"> 
       <div className="flex flex-col items-center justify-center 
                       space-y-2 text-center text-white 
                       text-sm sm:text-base md:text-lg"> 
-        <p>Your file is too large to process.</p>
+         <p>If you are facing same error again & again then try to upload file from laptop.</p>
       </div>
     </div>
+  }
+
+  if(error){
+    return <ErrorComponent/>
   }
   
   if (loading) {
