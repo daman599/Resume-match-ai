@@ -71,10 +71,9 @@ export default function ResumeUpload() {
 
   return (
     <>
-      <div className="relative min-h-screen bg-black overflow-hidden pt-16">
+  <div className="relative min-h-screen bg-black overflow-hidden pt-16">
   <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-8">
     
-    {/* Upload box */}
     <div
       {...getRootProps()}
       className="w-full 
@@ -115,9 +114,8 @@ export default function ResumeUpload() {
       />
     </div>
 
-    {/* Mobile-only text */}
     <div className="block sm:hidden mt-4 text-center text-sm text-gray-400">
-      Works well in large screens
+      <p className="underline">Works well in large screens.</p>
     </div>
   </div>
 </div>
