@@ -114,8 +114,8 @@ export default function ResumeUpload() {
       />
     </div>
 
-    <div className="block sm:hidden mt-4 text-center text-sm text-gray-400">
-      <p className="underline">Works well in large screens.</p>
+    <div className="block sm:hidden mt-4 text-center text-sm text-gray-400 blur-md">
+      <p >Works well in large screens.</p>
     </div>
   </div>
 </div>
