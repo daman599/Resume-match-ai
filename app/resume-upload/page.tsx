@@ -14,7 +14,6 @@ export default function ResumeUpload() {
   const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const countErrorRef = useRef<number>(0);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error ,setError] = useState<boolean>(false);
@@ -38,7 +37,6 @@ export default function ResumeUpload() {
     } catch (err :unknown) {
       console.log("Error while uploading resume" , err);
       setError(true);
-      countErrorRef.current += 1;
     }
   }
 
@@ -58,16 +56,6 @@ export default function ResumeUpload() {
     },
     noClick: true,
   });
-  
-  if(countErrorRef.current === 3){
-    return <div className="flex items-center justify-center h-screen w-screen px-4"> 
-      <div className="flex flex-col items-center justify-center 
-                      space-y-2 text-center text-white 
-                      text-sm sm:text-base md:text-lg"> 
-         <p>If you are facing same error again & again then try to upload file from laptop.</p>
-      </div>
-    </div>
-  }
 
   if(error){
     return <ErrorComponent/>
@@ -120,7 +108,7 @@ export default function ResumeUpload() {
             >
               Select File
             </button>
-
+           
             <input
               type="file"
               ref={inputRef}
@@ -135,7 +123,10 @@ export default function ResumeUpload() {
               className="hidden"
             />
           </div>
-        
+
+         <div className="block sm:hidden text-center 
+                      text-sm ">Works well in large screens</div>
+          
         </div>
       </div>
     </>
