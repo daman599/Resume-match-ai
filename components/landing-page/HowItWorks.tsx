@@ -1,12 +1,15 @@
 import { UploadCloud, Brain, BarChart3, Briefcase } from 'lucide-react';
+import Reveal from '../ui/Reveal';
 
 export default function HowItWorks() {
   return (
     <section className="w-full px-4 md:px-6 py-16 flex justify-center">
       <div className="w-full max-w-4xl bg-black/30 backdrop-blur-md rounded-2xl border border-white/20 px-4 sm:px-6 md:px-10 py-10 space-y-10">
+        <Reveal>
         <h2 className="text-2xl sm:text-3xl font-semibold text-center text-white">
           How ResumeMatch AI Works
         </h2>
+        </Reveal>
 
         {[
           {
@@ -32,8 +35,8 @@ export default function HowItWorks() {
         ].map(({ icon, title, desc }, i) => (
           <div
             key={i}
-          >
-
+          > 
+          <Reveal>
             <div className={`space-y-2  ${i !== 3 ? "border-b border-white/10" : ""} pb-6`}>
               <div className="flex items-center gap-3">
                 {icon}
@@ -46,7 +49,8 @@ export default function HowItWorks() {
                 {desc}
               </p>
             </div>
-
+          </Reveal>
+          
           </div>
         ))}
       </div>
