@@ -43,8 +43,6 @@ Others
 
 📬 Contact
 
-👨‍💻 Daman
-
-Portfolio: https://daman-portfolio-teal.vercel.app
-GitHub: https://github.com/daman599
-Twitter: https://x.com/daman76752
+- Portfolio: https://daman-portfolio-teal.vercel.app
+- GitHub: https://github.com/daman599
+- Twitter: https://x.com/daman76752
