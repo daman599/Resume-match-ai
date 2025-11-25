@@ -40,3 +40,9 @@ Others
 - Upstash Redis (caching)
 - pdf2json (PDF parsing)
 - Reactbits library (animations)
+
+📬 Contact
+
+- Portfolio: https://daman-portfolio-teal.vercel.app
+- GitHub: https://github.com/daman599
+- Twitter: https://x.com/daman76752
