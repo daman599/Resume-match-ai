@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "motion/react";
 
 export default function Navbar() {
   const session = useSession();
@@ -20,7 +21,12 @@ export default function Navbar() {
   }, [session]);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4">
+    <motion.nav
+      initial={{ opacity: 0, filter: "blur(3px)", y: -5 }}
+      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      viewport={{ once: true }}
+      className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-8 py-2.5">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>
           <h1 className="text-sm sm:text-base lg:text-lg font-semibold flex items-center gap-2 text-white">
@@ -96,6 +102,6 @@ export default function Navbar() {
           )}
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
