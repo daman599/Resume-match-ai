@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import React from "react";
 
 interface PropType {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export default function Loader({ children }: PropType) {
