@@ -6,8 +6,8 @@ import { useRef, useState } from "react";
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
 import { useStore } from "@/lib/state-store";
-import Loader from "@/components/helperComponents/Loader";
-import ErrorComponent from "@/components/helperComponents/Error";
+import { Loader } from "@/components/helperComponents/Loader";
+import { ErrorComponent } from "@/components/helperComponents/Error";
 import { motion } from "motion/react";
 
 export default function ResumeUpload() {
@@ -64,9 +64,7 @@ export default function ResumeUpload() {
 
   if (loading) {
     return (
-      <Loader>
-        <p className="text-xl text-gray-400">Uploading your resume...</p>
-      </Loader>
+      <Loader text={"Uploading your resume..."} />
     );
   }
 
@@ -75,44 +73,47 @@ export default function ResumeUpload() {
       initial={{ opacity: 0, filter: "blur(3px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="relative min-h-screen bg-black overflow-hidden pt-16">
+      className="min-h-screen flex items-center justify-center"
+    >
       <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-8">
 
-        <div
-          {...getRootProps()}
+        <div {...getRootProps()}
           className="w-full 
         max-w-sm sm:max-w-md md:max-w-lg 
-        p-4 sm:p-6 md:p-8                    
-        rounded-3xl border border-white/20 border-dashed 
+        p-4 sm:p-6 md:p-8 rounded-3xl border border-white/20 border-dashed 
         bg-white/5 backdrop-blur-xl shadow-2xl 
-        flex flex-col items-center justify-center 
-        space-y-4 text-center
+        flex flex-col items-center justify-center space-y-4 
         hover:border-blue-400 transition-all duration-300"
         >
           <input {...getInputProps()} />
+
           <UploadCloud className="text-[#0096FF] animate-pulse" size={40} />
-          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
-            Drag and drop your resume here
+
+          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white text-center">
+            Drag and drop your resume here.
           </h1>
-          <span className="text-xs sm:text-sm md:text-base text-gray-300 max-w-sm">Or</span>
-          <button
-            onClick={() => inputRef.current?.click()}
+
+          <span className="text-xs sm:text-sm md:text-base text-gray-300">Or</span>
+
+          <button onClick={() => inputRef.current?.click()}
             className="px-4 py-2 sm:px-6 sm:py-3  
-          text-xs sm:text-sm md:text-base    
-          rounded-md 
+          text-xs sm:text-sm md:text-base rounded-md 
           bg-white/10 border border-white/20 text-white font-medium
           hover:bg-white/20 hover:shadow-md focus:outline-none
-          focus:ring-2 focus:ring-white/30 transition duration-200 cursor-pointer"
+          focus:ring-2 focus:ring-white/30 transition duration-300 cursor-pointer"
           >
             Select File
           </button>
+
           <input
             type="file"
             ref={inputRef}
             accept=".pdf"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const file = e.target.files?.[0];
-              if (file) helper(file);
+              if (file) {
+                helper(file);
+              }
             }}
             className="hidden"
           />

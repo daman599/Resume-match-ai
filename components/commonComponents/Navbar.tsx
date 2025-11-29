@@ -23,22 +23,23 @@ export default function Navbar() {
   return (
     <motion.nav
       initial={{ opacity: 0, filter: "blur(3px)", y: -5 }}
-      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
       viewport={{ once: true }}
-      className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-8 py-2.5">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-20 py-2.5">
+
+      <div className="mx-auto max-w-7xl flex items-center justify-between">
         <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>
-          <h1 className="text-sm sm:text-base lg:text-lg font-semibold flex items-center gap-2 text-white">
+          <div className="flex items-center justify-center gap-2 text-white">
             <Image
               src="/icon.svg"
               alt="Logo"
               width={24}
               height={24}
-              className="bg-white p-[3px] rounded-xl w-6 h-6 sm:w-6 sm:h-6"
+              className="bg-white p-[2px] md:p-[3px] rounded-xl size-5 sm:size-6"
             />
-            ResumeMatch AI
-          </h1>
+            <span className="text-sm sm:text-base lg:text-lg font-semibold">ResumeMatch AI</span>
+          </div>
         </Link>
 
         <div className="relative">
@@ -46,15 +47,16 @@ export default function Navbar() {
             <>
               <button
                 onClick={() => setShowProfile((prev) => !prev)}
-                className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full flex items-center justify-center cursor-pointer border-2"
+                className="size-6 sm:size-7 md:size-8 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full flex items-center justify-center cursor-pointer"
               >
                 {char}
               </button>
 
               {showProfile && (
-                <div className="absolute right-2 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
+                <div className="absolute right-2 top-full min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
+
                   <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
-                    <p className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</p>
+                    <span className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</span>
                     <Image
                       src={session.data?.user?.image || "/user.png"}
                       alt="User"
@@ -64,9 +66,8 @@ export default function Navbar() {
                     />
                   </div>
 
-                  <button
-                    onClick={() => signOut()}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+                  <button onClick={() => signOut()}
+                    className="w-full h-full text-left px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                   >
                     Sign out
                   </button>
@@ -74,12 +75,12 @@ export default function Navbar() {
               )}
             </>
           ) : (
-            <button
-              onClick={() => signIn("google")}
-              className="bg-white/10 border border-white/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-white flex items-center gap-1 sm:gap-2 text-xs sm:text-sm hover:bg-white/20 hover:shadow-md cursor-pointer transition-all duration-200"
+            <button onClick={() => signIn("google")}
+              className="bg-white/10 border border-white/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-white 
+                flex items-center justify-center gap-1 sm:gap-2 hover:bg-white/20 cursor-pointer transition-all duration-300"
             >
               <svg
-                className="w-4 h-4 sm:w-5 sm:h-5"
+                className="w-3.5 h-3.5 sm:w-5 sm:h-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +98,7 @@ export default function Navbar() {
                   stroke="currentColor"
                 />
               </svg>
-              <span className="mt-0.5 sm:mt-0">Sign In</span>
+              <span className="text-xs sm:text-sm">Sign In</span>
             </button>
           )}
         </div>

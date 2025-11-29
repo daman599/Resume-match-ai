@@ -4,12 +4,10 @@ import CTAButton from "./CTA-Button";
 import { inter } from "@/lib/fonts";
 import { motion } from "motion/react";
 
-export default function Hero() {
+export const Hero = () => {
   return (
-    <section
-      className="relative min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-12 py-16 sm:py-20 
+    <section className="relative min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-12 py-16 sm:py-20 
                  bg-cover bg-center flex items-center justify-center">
-      <div className="absolute inset-0 z-0" />
 
       <motion.div
         initial={{ opacity: 0, filter: "blur(3px)" }}

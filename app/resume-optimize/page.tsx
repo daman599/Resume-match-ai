@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useStore } from "@/lib/state-store";
 import { plusJakarta } from "@/lib/fonts";
-import ErrorComponent from "@/components/helperComponents/Error";
-import Loader from "@/components/helperComponents/Loader";
-import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
+import { ErrorComponent } from "@/components/helperComponents/Error";
+import { Loader } from "@/components/helperComponents/Loader";
+import { NoResumeMessage } from "@/components/helperComponents/NoResumeMessage";
 import AnimatedList from "@/components/ui/AnimatedList";
 import axios from "axios";
+import { motion } from "motion/react";
 
 export default function ResumeOptimize() {
 
@@ -31,7 +32,7 @@ export default function ResumeOptimize() {
             console.log("Something went wrong", err)
             setError(true);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
@@ -66,20 +67,21 @@ export default function ResumeOptimize() {
     }
 
     if (loading) {
-        return <Loader>
-            <p className="text-xl text-gray-400">AI is analysing your resume....</p>
-        </Loader>
+        return <Loader text={"AI is analysing your resume...."} />
     }
 
     return (
         <>
             {tips.length > 0 && (
-                <div className="mt-20 px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto">
-                    <div className="py-8 ml-5 mr-5">
-                        <p className={`text-2xl sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] mb-4 text-center sm:text-left`}>
-                            Here are some tips to optimize your resume:
-                        </p>
-                    </div>
+                <motion.div initial={{ opacity: 0, filter: "blur(3px)" }}
+                    whileInView={{ opacity: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    viewport={{ once: true }}
+                    className="flex flex-col items-center justify-center px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto"
+                >
+                    <span className={`my-2 text-2xl sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] text-center sm:text-left`}>
+                        Here are some tips to optimize your resume:
+                    </span>
 
                     <AnimatedList
                         items={tips}
@@ -87,9 +89,9 @@ export default function ResumeOptimize() {
                         enableArrowNavigation={true}
                         displayScrollbar={false}
                     />
-
-                </div>
-            )}
+                </motion.div >
+            )
+            }
         </>
     );
 }

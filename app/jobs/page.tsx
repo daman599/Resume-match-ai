@@ -6,12 +6,12 @@ import { useStore } from "@/lib/state-store";
 import { useState, useEffect } from "react";
 import { Building2, MapPin, MoveUpRight, Dot } from "lucide-react";
 import { inter, plusJakarta } from "@/lib/fonts";
-import Loader from "@/components/helperComponents/Loader";
-import ErrorComponent from "@/components/helperComponents/Error";
-import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
+import { Loader } from "@/components/helperComponents/Loader";
+import { ErrorComponent } from "@/components/helperComponents/Error";
+import { NoResumeMessage } from "@/components/helperComponents/NoResumeMessage";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 import { motion, useAnimate, stagger } from "motion/react";
-import LoadingSkeleton from "@/components/helperComponents/LoadingSkeleton";
+import { LoadingSkeleton } from "@/components/helperComponents/LoadingSkeleton";
 
 export default function Jobs() {
 
@@ -84,16 +84,13 @@ export default function Jobs() {
   }
 
   if (loading) {
-    return <Loader>
-      <p className="text-xl text-gray-400">Analyzing your resume. Please wait....</p>
-    </Loader>
+    return <Loader text={"Analyzing your resume. Please wait...."} />
   }
 
   return (
     <>
       {jobs.length > 0 && (
         <div className="px-4 py-10 sm:px-6 sm:py-12 md:px-10 xl:px-20 md:py-16 lg:py-20">
-
           <div ref={scope} className="w-full max-w-6xl text-center mt-6 mb-10 mx-auto">
             {text.split(" ").map((word, i) => (
               <motion.span initial={{ opacity: 0, y: 10, filter: "blur(7px)" }}
