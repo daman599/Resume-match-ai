@@ -1,13 +1,15 @@
-import { ReactNode } from "react";
+import Link from "next/link";
 
-export default function NoResumeMessage({ children }: { children: ReactNode }) {
+export default function NoResumeMessage({ message }: { message: string }) {
   return (
-    <div className="flex items-center justify-center h-screen w-screen px-4"> 
-      <div className="flex flex-col items-center justify-center 
-                      space-y-2 text-center text-white 
-                      text-sm sm:text-base md:text-lg"> 
-        {children}
-      </div>
-    </div>
+    <div className="flex items-center justify-center h-screen w-screen text-center text-sm sm:text-base md:text-lg">
+      <p className="text-gray-400">Please provide&nbsp;
+        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
+          className="text-[#0096FF] cursor-pointer">
+          <span>resume&nbsp;</span>
+        </Link>
+        {message}
+      </p>
+    </div >
   );
 }

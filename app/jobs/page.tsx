@@ -80,13 +80,7 @@ export default function Jobs() {
   }
 
   if (!hasResume) {
-    return <NoResumeMessage>
-      <p className="text-xl text-gray-400">Please provide
-
-        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
-          className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get job recommendations.</p>
-
-    </NoResumeMessage>
+    return <NoResumeMessage message={"to get job recommendations."} />
   }
 
   if (loading) {

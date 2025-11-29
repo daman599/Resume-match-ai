@@ -9,7 +9,6 @@ import Loader from "@/components/helperComponents/Loader";
 import NoResumeMessage from "@/components/helperComponents/NoResumeMessage";
 import AnimatedList from "@/components/ui/AnimatedList";
 import axios from "axios";
-import Link from "next/link";
 
 export default function ResumeOptimize() {
 
@@ -22,14 +21,14 @@ export default function ResumeOptimize() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    async function ApiCall(){
+    async function ApiCall() {
         try {
             const response = await axios.post("/api/resume/optimize", { resumeText: parsedText });
-            if(response.data){
-               setTips(response.data.tips);
+            if (response.data) {
+                setTips(response.data.tips);
             }
-        } catch (err:unknown) {
-            console.log("Something went wrong" ,err)
+        } catch (err: unknown) {
+            console.log("Something went wrong", err)
             setError(true);
         } finally {
             setLoading(false)
@@ -46,8 +45,8 @@ export default function ResumeOptimize() {
                     return;
                 }
                 else if (tips.length === 0) {
-                  setLoading(true);
-                  ApiCall();
+                    setLoading(true);
+                    ApiCall();
                 }
             }
             else if (session.status === "unauthenticated") {
@@ -56,18 +55,14 @@ export default function ResumeOptimize() {
         }
         checkAuth();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [session ])
+    }, [session])
 
     if (error) {
         return <ErrorComponent />
     }
 
     if (!hasResume) {
-        return <NoResumeMessage>
-            <p className="text-xl text-gray-400">Please provide
-                <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/resume-upload`}
-                    className="text-[#0096FF] ml-1.5 cursor-pointer">resume</Link> to get tips to optimize it.</p>
-        </NoResumeMessage>
+        return <NoResumeMessage message={"to get tips to optimize it."} />
     }
 
     if (loading) {
