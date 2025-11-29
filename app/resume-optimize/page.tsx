@@ -77,9 +77,9 @@ export default function ResumeOptimize() {
                     whileInView={{ opacity: 1, filter: "blur(0px)" }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                     viewport={{ once: true }}
-                    className="flex flex-col items-center justify-center px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto"
+                    className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 md:px-16 lg:px-24 mb-20 w-full max-w-5xl mx-auto"
                 >
-                    <span className={`my-2 text-2xl sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] text-center sm:text-left`}>
+                    <span className={`my-4 text-2xl sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] text-center sm:text-left`}>
                         Here are some tips to optimize your resume:
                     </span>
 

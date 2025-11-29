@@ -40,7 +40,7 @@ export const Features = () => {
 
                 <div className="absolute inset-0 -z-10">
                   <Image
-                    src="/bg-network.jpg"
+                    src="/bg-network.png"
                     alt="Network"
                     fill
                     className="object-cover opacity-30 rounded-xl"
