@@ -47,27 +47,31 @@ export default function Navbar() {
             <>
               <button
                 onClick={() => setShowProfile((prev) => !prev)}
-                className="size-6 sm:size-7 md:size-8 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full flex items-center justify-center cursor-pointer"
+                className="size-6 sm:size-7 md:size-8 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200"
               >
                 {char}
               </button>
 
               {showProfile && (
-                <div className="absolute right-2 top-full min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
+                <div className="absolute right-0 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10 backdrop-blur-sm border border-white/20">
+                  <div className="absolute -top-2 right-3 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/90"></div>
 
-                  <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
-                    <span className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</span>
+                  <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-200">
+                    <span className="text-sm font-medium truncate max-w-[70%]">
+                      {session.data?.user?.name}
+                    </span>
                     <Image
                       src={session.data?.user?.image || "/user.png"}
                       alt="User"
                       width={28}
                       height={28}
-                      className="rounded-full border border-gray-300"
+                      className="rounded-full border border-gray-300 shadow-sm"
                     />
                   </div>
 
-                  <button onClick={() => signOut()}
-                    className="w-full h-full text-left px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+                  <button
+                    onClick={() => signOut()}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100/50 transition-colors duration-200 cursor-pointer font-medium"
                   >
                     Sign out
                   </button>
@@ -75,9 +79,11 @@ export default function Navbar() {
               )}
             </>
           ) : (
-            <button onClick={() => signIn("google")}
+            <button
+              onClick={() => signIn("google")}
               className="bg-white/10 border border-white/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-white 
-                flex items-center justify-center gap-1 sm:gap-2 hover:bg-white/20 cursor-pointer transition-all duration-300"
+        flex items-center justify-center gap-1 sm:gap-2 hover:bg-white/20 hover:-translate-y-0.5 
+        cursor-pointer transition-all duration-300 backdrop-blur-sm"
             >
               <svg
                 className="w-3.5 h-3.5 sm:w-5 sm:h-5"
@@ -98,7 +104,7 @@ export default function Navbar() {
                   stroke="currentColor"
                 />
               </svg>
-              <span className="text-xs sm:text-sm">Sign In</span>
+              <span className="text-xs sm:text-sm font-medium">Sign In</span>
             </button>
           )}
         </div>
