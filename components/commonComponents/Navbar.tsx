@@ -53,7 +53,7 @@ export default function Navbar() {
               </button>
 
               {showProfile && (
-                <div className="absolute right-2 top-full min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
+                <div className="absolute right-2 top-0.5 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10">
 
                   <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-500">
                     <span className="text-sm font-medium truncate max-w-[70%]">{session.data?.user?.name}</span>
