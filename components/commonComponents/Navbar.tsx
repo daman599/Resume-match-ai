@@ -4,7 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function Navbar() {
   const session = useSession();
@@ -47,36 +47,43 @@ export default function Navbar() {
             <>
               <button
                 onClick={() => setShowProfile((prev) => !prev)}
-                className="size-6 sm:size-7 md:size-8 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200"
+                className="size-6 sm:size-7 md:size-8 bg-white text-black text-base sm:text-lg md:text-xl font-bold rounded-full flex items-center justify-center cursor-pointer "
               >
                 {char}
               </button>
 
-              {showProfile && (
-                <div className="absolute right-0 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10 backdrop-blur-sm border border-white/20">
-                  <div className="absolute -top-2 right-3 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/90"></div>
+              <AnimatePresence>
+                {showProfile && (
+                  <motion.div
+                    initial={{ opacity: 0, filter: "blur(3px)" }}
+                    animate={{ opacity: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                    exit={{ opacity: 0 }}
+                    className="absolute right-0 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10 backdrop-blur-sm border border-white/20">
+                    <div className="absolute -top-2 right-3 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/90"></div>
 
-                  <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-200">
-                    <span className="text-sm font-medium truncate max-w-[70%]">
-                      {session.data?.user?.name}
-                    </span>
-                    <Image
-                      src={session.data?.user?.image || "/user.png"}
-                      alt="User"
-                      width={28}
-                      height={28}
-                      className="rounded-full border border-gray-300 shadow-sm"
-                    />
-                  </div>
+                    <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-200">
+                      <span className="text-sm font-medium truncate max-w-[70%]">
+                        {session.data?.user?.name}
+                      </span>
+                      <Image
+                        src={session.data?.user?.image || "/user.png"}
+                        alt="User"
+                        width={28}
+                        height={28}
+                        className="rounded-full border border-gray-300 shadow-sm"
+                      />
+                    </div>
 
-                  <button
-                    onClick={() => signOut()}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100/50 transition-colors duration-200 cursor-pointer font-medium"
-                  >
-                    Sign out
-                  </button>
-                </div>
-              )}
+                    <button
+                      onClick={() => signOut()}
+                      className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100/50 transition-colors duration-200 cursor-pointer font-medium"
+                    >
+                      Sign out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </>
           ) : (
             <button
