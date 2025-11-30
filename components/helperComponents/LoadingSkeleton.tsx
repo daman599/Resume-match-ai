@@ -17,7 +17,7 @@ export const LoadingSkeleton = () => {
                             duration: 1,
                             ease: "easeOut"
                         }}
-                        className="animate-pulse aspect-square bg-[#2c2c2e] rounded-lg sm:rounded-xl relative overflow-hidden"
+                        className="animate-pulse aspect-square bg-white/5 rounded-lg sm:rounded-xl relative overflow-hidden"
                     >
                     </motion.div>
                 ))}
