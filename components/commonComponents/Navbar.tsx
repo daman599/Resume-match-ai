@@ -55,12 +55,12 @@ export default function Navbar() {
               <AnimatePresence>
                 {showProfile && (
                   <motion.div
-                    initial={{ opacity: 0, filter: "blur(3px)" }}
+                    initial={{ opacity: 0, filter: "blur(1px)" }}
                     animate={{ opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
-                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    exit={{ opacity: 0, filter: "blur(1px)" }}
                     className="absolute right-0 top-full mt-2 min-w-[12rem] max-w-[90vw] bg-white/90 text-black rounded-lg shadow-lg py-2 z-10 backdrop-blur-sm border border-white/20">
-                    <div className="absolute -top-2 right-3 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/90"></div>
+                    <div className="absolute -top-2 right-3 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/90 z-20"></div>
 
                     <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-gray-200">
                       <span className="text-sm font-medium truncate max-w-[70%]">
