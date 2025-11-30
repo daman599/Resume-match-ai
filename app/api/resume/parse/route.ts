@@ -4,10 +4,11 @@ import PDFParser from "pdf2json";
 type ParsedPDFtype = {
        Pages: {
               Texts: {
-                      R: { T: string }[];
+                     R: { T: string }[];
               }[];
        }[];
 };
+
 export async function POST(request: NextRequest) {
 
        const formData = await request.formData();
@@ -30,9 +31,9 @@ export async function POST(request: NextRequest) {
        })
 
        const parsedText = parsedData.Pages.flatMap((p) => (
-               p.Texts.map((t) => (
-                    decodeURIComponent(t.R[0].T).replace(/\s+/g, " ")
-               ))
+              p.Texts.map((t) => (
+                     decodeURIComponent(t.R[0].T).replace(/\s+/g, " ")
+              ))
        )).join(" ");
 
        return NextResponse.json({ parsedText });

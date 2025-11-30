@@ -41,14 +41,13 @@ export default function Jobs() {
       setError(true);
     } finally {
       setLoading(false);
-
     }
   }
 
   function tempLoading() {
     setTimeout(() => {
       setJobsLoading(false);
-    }, 5000);
+    }, 6000);
   }
 
   useEffect(() => {
@@ -75,17 +74,11 @@ export default function Jobs() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (error) {
-    return <ErrorComponent />
-  }
+  if (error) return <ErrorComponent />
 
-  if (!hasResume) {
-    return <NoResumeMessage message={"to get job recommendations."} />
-  }
+  if (!hasResume) return <NoResumeMessage message={"to get job recommendations."} />
 
-  if (loading) {
-    return <Loader text={"Analyzing your resume. Please wait...."} />
-  }
+  if (loading) return <Loader text={"Analyzing your resume. Please wait...."} />
 
   return (
     <>

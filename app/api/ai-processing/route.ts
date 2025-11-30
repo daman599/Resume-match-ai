@@ -4,25 +4,24 @@ import { FetchandCacheJobs } from "@/lib/fetch-jobs"
 import { Job } from "@/lib/state-store";
 
 const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(req: NextRequest) {
 
-    const body = await req.json();
-    const resumeText = body.resumeText;
-    
-    try{
+  const body = await req.json();
+  const resumeText = body.resumeText;
 
-    const object = await FetchandCacheJobs();
-    const latestJobs = object.latest_jobs;
-    
+  try {
+    const response = await FetchandCacheJobs();
+    const latestJobs = response.latest_jobs;
+
     const completion = await groq.chat.completions.create({
       model: `llama-3.3-70b-versatile`,
       messages: [
-      {
-        role: 'user',
-        content: `
+        {
+          role: 'user',
+          content: `
        You are an intelligent job-matching assistant.
 
        I will provide you with:
@@ -57,21 +56,21 @@ export async function POST(req: NextRequest) {
 
        Now, return only the matching jobs in a clean JSON array.
          `
-      }
+        }
       ],
       temperature: 0.3
     });
-    
-     const content:string | null = completion.choices[0]?.message?.content;
-     const suitableJobs:Job[] = content ? JSON.parse(content) : [];
-     return NextResponse.json({ suitableJobs: suitableJobs});
 
-    }catch(err : unknown){
-      console.error("AI processing failed:", err);
-      
-      return NextResponse.json(
-        {error : "Something went wrong"},
-        {status : 500}
-      );
-    }
+    const content: string | null = completion.choices[0]?.message?.content;
+    const suitableJobs: Job[] = content ? JSON.parse(content) : [];
+    return NextResponse.json({ suitableJobs });
+
+  } catch (err: unknown) {
+    console.error("AI processing failed:", err);
+
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }

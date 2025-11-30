@@ -58,68 +58,58 @@ export default function ResumeUpload() {
     noClick: true,
   });
 
-  if (error) {
-    return <ErrorComponent />
-  }
+  if (error) return <ErrorComponent />
 
-  if (loading) {
-    return (
-      <Loader text={"Uploading your resume..."} />
-    );
-  }
+  if (loading) return <Loader text={"Uploading your resume..."} />
 
   return (
     <motion.div
       initial={{ opacity: 0, filter: "blur(3px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="min-h-screen flex items-center justify-center"
-    >
-      <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center min-h-[calc(100vh-64px)] px-4 sm:px-6 md:px-8">
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="min-h-screen relative z-10 flex items-center justify-center px-4 sm:px-6 md:px-8" >
 
-        <div {...getRootProps()}
-          className="w-full 
+      <div {...getRootProps()}
+        className="w-full 
         max-w-sm sm:max-w-md md:max-w-lg 
         p-4 sm:p-6 md:p-8 rounded-3xl border border-white/20 border-dashed 
         bg-white/5 backdrop-blur-xl shadow-2xl 
         flex flex-col items-center justify-center space-y-4 
         hover:border-blue-400 transition-all duration-300"
-        >
-          <input {...getInputProps()} />
+      >
+        <input {...getInputProps()} />
 
-          <UploadCloud className="text-[#0096FF] animate-pulse" size={40} />
+        <UploadCloud className="text-[#0096FF] animate-pulse" size={40} />
 
-          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white text-center">
-            Drag and drop your resume here.
-          </h1>
+        <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white text-center">
+          Drag and drop your resume here.
+        </h1>
 
-          <span className="text-xs sm:text-sm md:text-base text-gray-300">Or</span>
+        <span className="text-xs sm:text-sm md:text-base text-gray-300">Or</span>
 
-          <button onClick={() => inputRef.current?.click()}
-            className="px-4 py-2 sm:px-6 sm:py-3  
+        <button onClick={() => inputRef.current?.click()}
+          className="px-4 py-2 sm:px-6 sm:py-3  
           text-xs sm:text-sm md:text-base rounded-md 
           bg-white/10 border border-white/20 text-white font-medium
           hover:bg-white/20 hover:shadow-md focus:outline-none
           focus:ring-2 focus:ring-white/30 transition duration-300 cursor-pointer"
-          >
-            Select File
-          </button>
+        >
+          Select File
+        </button>
 
-          <input
-            type="file"
-            ref={inputRef}
-            accept=".pdf"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                helper(file);
-              }
-            }}
-            className="hidden"
-          />
-        </div>
+        <input
+          type="file"
+          ref={inputRef}
+          accept=".pdf"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              helper(file);
+            }
+          }}
+          className="hidden"
+        />
       </div>
-
-    </motion.div>
+    </motion.div >
   );
 }

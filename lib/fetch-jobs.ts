@@ -53,7 +53,7 @@ export async function FetchandCacheJobs() {
                     jobId: job.id,
                     title: job.title,
                     company: job.company.display_name,
-                    location: job.location.area.join(", "),
+                    location: job.location.area.join(","),
                     jobCategory: job.category.label,
                     redirect_url: job.redirect_url,
                     description: job.description,

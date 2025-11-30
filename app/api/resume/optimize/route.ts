@@ -6,18 +6,16 @@ const groq = new Groq({
 });
 
 export async function POST(req: NextRequest) {
-
     const body = await req.json();
     const resumeText = body.resumeText;
-    
-    try{
-        
-    const completion = await groq.chat.completions.create({
-        model: `llama-3.1-8b-instant`,
-        messages: [
-            {
-                role: 'user',
-                content: `
+
+    try {
+        const completion = await groq.chat.completions.create({
+            model: `llama-3.1-8b-instant`,
+            messages: [
+                {
+                    role: 'user',
+                    content: `
             You're a trusted and experienced mentor who wants to help someone you care about succeed in their job search.
 
             You’ve reviewed many resumes and understand what recruiters and hiring managers look for. Now, you're going to review this candidate's resume and give them **honest, specific, and actionable feedback** — not to criticize, but to help them grow and improve.
@@ -37,21 +35,21 @@ export async function POST(req: NextRequest) {
             
             ${resumeText}
             `
-            }
-        ],
-        temperature: 0.3,
-    })
+                }
+            ],
+            temperature: 0.3,
+        })
 
-    const response:string | null= completion.choices[0]?.message?.content;
-    const tips:string[] = response ? JSON.parse(response) : [];
-    return NextResponse.json({ tips : tips });
+        const response: string | null = completion.choices[0]?.message?.content;
+        const tips: string[] = response ? JSON.parse(response) : [];
+        return NextResponse.json({ tips: tips });
 
-   }catch(err:unknown){
-    console.error("AI based resume optimization failed:", err);
+    } catch (err: unknown) {
+        console.error("AI based resume optimization failed:", err);
 
-    return NextResponse.json(
-        {error : "Something went wrong"},
-        {status : 500}
-    )
-   }
+        return NextResponse.json(
+            { error: "Something went wrong" },
+            { status: 500 }
+        )
+    }
 }

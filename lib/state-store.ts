@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 export interface Job {
     _id: string,
@@ -14,21 +14,19 @@ export interface Job {
 }
 
 interface StateType {
-    parsedText : string,
-    updateParsedText : (text : string) => void ,
-    jobs : Job[],
-    updateJobs : (jobs :Job[]) => void ,
-    tips : string[],
-    updateTips : ( tips :string[]) => void ,
+    parsedText: string,
+    updateParsedText: (text: string) => void,
+    jobs: Job[],
+    updateJobs: (jobs: Job[]) => void,
+    tips: string[],
+    updateTips: (tips: string[]) => void,
 }
 
-export const useStore = create<StateType>((set) => (
-     {
-        parsedText : "", 
-        updateParsedText : (text) => set({ parsedText : text }),
-        jobs : [],
-        updateJobs :(jobs) => set({ jobs }),
-        tips : [],
-        updateTips : (tips) => set({ tips }),
-     }
-))
+export const useStore = create<StateType>((set) => ({
+    parsedText: "",
+    updateParsedText: (text) => set({ parsedText: text }),
+    jobs: [],
+    updateJobs: (jobs) => set({ jobs }),
+    tips: [],
+    updateTips: (tips) => set({ tips }),
+}))
