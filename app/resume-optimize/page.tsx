@@ -79,7 +79,7 @@ export default function ResumeOptimize() {
                     viewport={{ once: true }}
                     className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 md:px-16 lg:px-24 my-14 md:my-20 w-full max-w-5xl mx-auto "
                 >
-                    <span className={`my-4 text-base sm:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF]`}>
+                    <span className={`my-4 text-lg md:text-2xl ${plusJakarta.variable} font-medium text-[#0096FF] text-center`}>
                         Here are some tips to optimize your resume:
                     </span>
 
