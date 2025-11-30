@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/commonComponents/Navbar";
+import { Navbar } from "@/components/commonComponents/Navbar";
 import { Provider } from "@/components/commonComponents/Provider";
 
 const geistSans = Geist({
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: "ResumeMatch AI – Smart Resume to Job Matching",
   description: "Upload your resume and get matched with the most relevant, latest jobs using AI.",
 };
@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Provider>
-          <Navbar/>
+          <Navbar />
           {children}
         </Provider>
       </body>

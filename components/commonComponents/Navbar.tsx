@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 
-export default function Navbar() {
+export const Navbar = () => {
   const session = useSession();
   const [char, setChar] = useState<string | null>(null);
   const [showProfile, setShowProfile] = useState<boolean>(false);
