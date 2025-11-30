@@ -6,7 +6,7 @@ import React, {
   MouseEventHandler,
   UIEvent,
 } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import { CheckCheck } from "lucide-react";
 import { plusJakarta } from "@/lib/fonts";
 
@@ -152,11 +152,10 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
     <div className={`relative w-full ${className}`}>
       <div
         ref={listRef}
-        className={`h-full  w-full overflow-y-auto p-4 ${
-          displayScrollbar
+        className={`h-full  w-full overflow-y-auto p-4 ${displayScrollbar
             ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-thumb]:rounded-[4px]"
             : "scrollbar-hide"
-        }`}
+          }`}
         onScroll={handleScroll}
         style={{
           scrollbarWidth: displayScrollbar ? "thin" : "none",
@@ -164,32 +163,32 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         }}
       >
         <div className="space-y-4">
-        {items.map((item, index) => (
-          <AnimatedItem
-            key={index}
-            delay={0.1}
-            index={index}
-            onMouseEnter={() => setSelectedIndex(index)}
-            onClick={() => {
-              setSelectedIndex(index);
-              if (onItemSelect) {
-                onItemSelect(item, index);
-              }
-            }}
-          > 
-
-            <div
-              className="flex items-start gap-3  hover:bg-white/20  bg-white/5 p-4 rounded-xl shadow-sm transition-colors"
+          {items.map((item, index) => (
+            <AnimatedItem
+              key={index}
+              delay={0.1}
+              index={index}
+              onMouseEnter={() => setSelectedIndex(index)}
+              onClick={() => {
+                setSelectedIndex(index);
+                if (onItemSelect) {
+                  onItemSelect(item, index);
+                }
+              }}
             >
+
+              <div
+                className="flex items-start gap-3  hover:bg-white/20  bg-white/5 p-4 rounded-xl shadow-sm transition-colors"
+              >
                 <CheckCheck className="text-[#0096FF] mt-1 text-xl shrink-0" />
                 <p className={`${plusJakarta.variable} text-base sm:text-lg font-medium text-white/40 `}>
-                    {item}
+                  {item}
                 </p>
 
               </div>
 
-          </AnimatedItem>   
-        ))}
+            </AnimatedItem>
+          ))}
         </div>
       </div>
 
